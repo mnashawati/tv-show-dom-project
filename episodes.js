@@ -1794,7 +1794,7 @@ function getAllEpisodes() {
           "http://static.tvmaze.com/uploads/images/original_untouched/195/487839.jpg",
       },
       summary:
-        "<p>The survivors plan their next steps; Cersei makes a power move.</p>",
+        "<p>The survivors plan their next steps; Cersei makes a power move.</p><p></p>",
       _links: {
         self: {
           href: "http://api.tvmaze.com/episodes/1623966",
