@@ -1,3 +1,21 @@
 #root {
-  color: red;
+  color: black;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.column {
+  text-align: center;
+  align-items: center;
+  width: 30%;
+  margin-top: 20px;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+.summery {
+  padding: 5px;
+  text-justify: auto;
 }
