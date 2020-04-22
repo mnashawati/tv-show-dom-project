@@ -24,7 +24,7 @@ body {
   background-color: lightslategray;
   border: 1px solid black;
   border-radius: 5px;
-  height: 12vh;
+  height: 100%;
   margin: 15px 8px;
   padding: 10px;
 }
