@@ -3,19 +3,64 @@
   width: 100%;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: space-evenly;
 }
 
-.column {
+body {
+  background-color: black;
+}
+
+.episode-container {
+  background-color: silver;
   text-align: center;
   align-items: center;
-  width: 30%;
+  width: 80%;
   margin-top: 20px;
   border: 1px solid black;
   border-radius: 5px;
 }
 
-.summery {
-  padding: 5px;
-  text-justify: auto;
+.title-container {
+  background-color: lightslategray;
+  border: 1px solid black;
+  border-radius: 5px;
+  height: 12vh;
+  margin: 15px 8px;
+  padding: 10px;
+}
+
+img {
+  max-width: 95%;
+}
+
+.title {
+}
+
+.summary {
+  padding: 0 16px;
+  text-align: justify;
+}
+
+/* @media only screen and (min-width: 768px) and (max-width: 959px){
+ 
+...
+ 
+} */
+
+@media (min-width: 640px) {
+  .episode-container {
+    width: 45%;
+  }
+}
+
+@media (min-width: 768px) {
+  .episode-container {
+    width: 30%;
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  .episode-container {
+    width: 24%;
+  }
 }

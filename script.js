@@ -10,32 +10,36 @@ function makePageForEpisodes(episode) {
 
   episode.forEach((episode) => {
     let episodeContainer = document.createElement("div");
-    episodeContainer.className = "column";
+    episodeContainer.className = "episode-container";
     rootElem.appendChild(episodeContainer);
 
     let episodeName = episode.name;
-    let episodeNumber = `S${String(episode.season).padStart(2, 0)} - E${String(
+    let episodeNumber = `S${String(episode.season).padStart(2, 0)}E${String(
       episode.number
     ).padStart(2, 0)}`;
     let episodeImage = episode.image.medium;
-    let episodeSummery = episode.summary;
+    let episodeSummary = episode.summary.replace("<p>", "").replace("</p>", "");
 
-    let h1Elm = document.createElement("h1");
-    episodeContainer.appendChild(h1Elm);
-    h1Elm.textContent = episodeName;
+    // let h1Elm = document.createElement("h1");
+    // episodeContainer.appendChild(h1Elm);
+    // h1Elm.textContent = episodeName;
+    let titleContainer = document.createElement("div");
+    episodeContainer.appendChild(titleContainer);
+    titleContainer.className = "title-container";
 
-    let h2Elm = document.createElement("h2");
-    episodeContainer.appendChild(h2Elm);
-    h2Elm.textContent = episodeNumber;
+    let titleElm = document.createElement("h3");
+    titleContainer.appendChild(titleElm);
+    titleElm.textContent = `${episodeName} - ${episodeNumber}`;
+    titleElm.className = "title";
 
     let img = document.createElement("img");
     episodeContainer.appendChild(img);
     img.src = episodeImage;
 
-    let summery = document.createElement("div");
-    episodeContainer.appendChild(summery);
-    // summery.children.className = "summery";
-    summery.innerHTML = episodeSummery;
+    let summary = document.createElement("p");
+    episodeContainer.appendChild(summary);
+    summary.innerHTML = episodeSummary;
+    summary.className = "summary";
   });
 }
 
