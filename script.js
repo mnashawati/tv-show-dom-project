@@ -20,9 +20,6 @@ function makePageForEpisodes(episode) {
     let episodeImage = episode.image.medium.replace("http", "https");
     let episodeSummary = episode.summary.replace("<p>", "").replace("</p>", "");
 
-    // let h1Elm = document.createElement("h1");
-    // episodeContainer.appendChild(h1Elm);
-    // h1Elm.textContent = episodeName;
     let titleContainer = document.createElement("div");
     episodeContainer.appendChild(titleContainer);
     titleContainer.className = "title-container";
