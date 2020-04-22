@@ -15,7 +15,7 @@ body {
   text-align: center;
   align-items: center;
   width: 80%;
-  /* height: 550px; */
+  min-height: 450px;
   /* overflow: scroll-hidden; */
   margin-top: 20px;
   border: 1px solid black;
