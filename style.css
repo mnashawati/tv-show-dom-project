@@ -27,6 +27,8 @@ body {
   height: 4rem;
   margin: 16px 8px;
   padding: 10px;
+  display: flex;
+  justify-content: center;
 }
 
 img {
@@ -35,7 +37,8 @@ img {
 
 .title {
   margin: auto 0;
-  vertical-align: middle;
+  -webkit-text-stroke: thin;
+  /* vertical-align: middle; */
 }
 
 .summary {
