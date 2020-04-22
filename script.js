@@ -17,7 +17,7 @@ function makePageForEpisodes(episode) {
     let episodeNumber = `S${String(episode.season).padStart(2, 0)}E${String(
       episode.number
     ).padStart(2, 0)}`;
-    let episodeImage = episode.image.medium;
+    let episodeImage = episode.image.medium.replace("http", "https");
     let episodeSummary = episode.summary.replace("<p>", "").replace("</p>", "");
 
     // let h1Elm = document.createElement("h1");
