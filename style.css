@@ -53,13 +53,13 @@ img {
 
 @media (min-width: 576px) {
   .episode-container {
-    width: 48%;
+    width: 80%;
   }
 }
 
 @media (min-width: 640px) {
   .episode-container {
-    width: 32%;
+    width: 48%;
   }
 }
 
