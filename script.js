@@ -2,7 +2,6 @@
 function setup() {
   const allEpisodes = getAllEpisodes();
   makePageForEpisodes(allEpisodes);
-  displayingNumOfEpisodes(allEpisodes, allEpisodes);
 }
 
 // rootElem.textContent = `Got ${episode.length} episode(s)`;
@@ -34,33 +33,35 @@ function createEpisodeCard(episode) {
 
   const summaryElm = document.createElement("p");
   episodeContainer.appendChild(summaryElm);
-  summaryElm.innerHTML = episode.summary.replace("<p>", "").replace("</p>", "");
   summaryElm.className = "summary";
+  summaryElm.innerHTML = episode.summary.replace("<p>", "").replace("</p>", "");
 }
 
 function makePageForEpisodes(episodes) {
   episodes.forEach((episode) => {
     createEpisodeCard(episode);
   });
+  displayingNumOfEpisodes(episodes, episodes);
 }
 
 // Level 200
 const searchElm = document.getElementById("search");
+
 searchElm.addEventListener("input", () => {
   document.getElementById("root").innerHTML = "";
 
   const allEpisodes = getAllEpisodes();
-  const filteredEpisodes = filteredSearch(allEpisodes, searchElm.value);
+  const filteredEpisodes = filterSearch(allEpisodes, searchElm.value);
 
   makePageForEpisodes(filteredEpisodes);
   displayingNumOfEpisodes(filteredEpisodes, allEpisodes);
 });
 
-function filteredSearch(episodes, searchInput) {
-  let searchResults = episodes.filter(
+function filterSearch(episodes, searchInput) {
+  const searchResults = episodes.filter(
     (episode) =>
-      episode.summary.toUpperCase().includes(searchInput.toUpperCase()) ||
-      episode.name.toUpperCase().includes(searchInput.toUpperCase())
+      episode.name.toUpperCase().includes(searchInput.toUpperCase()) ||
+      episode.summary.toUpperCase().includes(searchInput.toUpperCase())
   );
   return searchResults;
 }
