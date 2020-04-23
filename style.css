@@ -3,7 +3,7 @@ body {
 }
 
 #root {
-  max-width: 80%;
+  max-width: 90%;
   margin: 20px auto;
   display: flex;
   flex-wrap: wrap;
