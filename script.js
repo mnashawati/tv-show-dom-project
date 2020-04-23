@@ -28,7 +28,7 @@ function createEpisodeCard(episode) {
 
   const nameEl = document.createElement("h3");
   titleContainerEl.appendChild(nameEl);
-  nameEl.className = "title";
+  nameEl.className = "name";
   nameEl.textContent = episode.name;
 
   const imgEl = document.createElement("img");

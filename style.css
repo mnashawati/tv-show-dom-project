@@ -11,26 +11,48 @@ body {
 }
 
 .episode-container {
-  background-color: silver;
+  background-color: #636868;
   text-align: center;
   align-items: center;
   min-height: 450px;
   /* overflow: scroll-hidden; */
   margin-top: 10px;
+  margin-bottom: 10px;
   padding: 10px;
   border: 1px solid black;
-  border-radius: 5px;
+  border-radius: 7px;
 }
 
 .title-container {
-  background-color: lightslategray;
+  background-color: #272d33;
+  color: #d4c493;
   border: 1px hidden;
-  border-radius: 5px;
+  border-radius: 5px 5px 0 0;
   height: 50px;
   margin: -10px;
   padding: 10px;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  /* justify-content: center; */
+}
+
+.season-episode-num {
+  border: 1px solid gray;
+  background-color: #272d33;
+  border-radius: 2px;
+  width: 50%;
+  /* height: 50px; */
+  font-weight: bolder;
+  align-self: center;
+  margin: 0;
+  margin-top: -20px;
+  padding: 5px;
+}
+
+.name {
+  margin: auto 0;
+  -webkit-text-stroke: thin;
+  /* vertical-align: middle; */
 }
 
 img {
@@ -38,12 +60,6 @@ img {
   margin-top: 20px;
   border: 1px hidden;
   border-radius: 5px;
-}
-
-.title {
-  margin: auto 0;
-  -webkit-text-stroke: thin;
-  /* vertical-align: middle; */
 }
 
 .summary {
