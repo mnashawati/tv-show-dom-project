@@ -51,7 +51,8 @@ img {
   text-align: justify;
 }
 
-.data-origin {
+.data-origin,
+.display {
   color: beige;
 }
 
