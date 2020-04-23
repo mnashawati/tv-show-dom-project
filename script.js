@@ -9,32 +9,36 @@ function setup() {
 function createEpisodeCard(episode) {
   const rootElem = document.getElementById("root");
 
-  const episodeContainer = document.createElement("div");
-  episodeContainer.className = "episode-container";
-  rootElem.appendChild(episodeContainer);
+  const episodeContainerEl = document.createElement("div");
+  rootElem.appendChild(episodeContainerEl);
+  episodeContainerEl.className = "episode-container";
 
-  const titleContainer = document.createElement("div");
-  titleContainer.className = "title-container";
-  episodeContainer.appendChild(titleContainer);
+  const titleContainerEl = document.createElement("div");
+  episodeContainerEl.appendChild(titleContainerEl);
+  titleContainerEl.className = "title-container";
 
-  const titleElm = document.createElement("h3");
-  titleElm.className = "title";
-  titleContainer.appendChild(titleElm);
+  const seasonAndEpisodeNumEl = document.createElement("p");
+  titleContainerEl.appendChild(seasonAndEpisodeNumEl);
+  seasonAndEpisodeNumEl.className = "season-episode-num";
+  seasonAndEpisodeNumEl.textContent = `S${String(episode.season).padStart(
+    2,
+    0
+  )}E${String(episode.number).padStart(2, 0)}`;
+  episode.se = seasonAndEpisodeNumEl.textContent;
 
-  const episodeName = episode.name;
-  const episodeNumber = `S${String(episode.season).padStart(2, 0)}E${String(
-    episode.number
-  ).padStart(2, 0)}`;
-  titleElm.textContent = `${episodeName} - ${episodeNumber}`;
+  const nameEl = document.createElement("h3");
+  titleContainerEl.appendChild(nameEl);
+  nameEl.className = "title";
+  nameEl.textContent = episode.name;
 
-  const imgElm = document.createElement("img");
-  episodeContainer.appendChild(imgElm);
-  imgElm.src = episode.image.medium.replace("http", "https");
+  const imgEl = document.createElement("img");
+  episodeContainerEl.appendChild(imgEl);
+  imgEl.src = episode.image.medium.replace("http", "https");
 
-  const summaryElm = document.createElement("p");
-  episodeContainer.appendChild(summaryElm);
-  summaryElm.className = "summary";
-  summaryElm.innerHTML = episode.summary.replace("<p>", "").replace("</p>", "");
+  const summaryEl = document.createElement("p");
+  episodeContainerEl.appendChild(summaryEl);
+  summaryEl.className = "summary";
+  summaryEl.innerHTML = episode.summary.replace("<p>", "").replace("</p>", "");
 }
 
 function makePageForEpisodes(episodes) {
@@ -48,10 +52,11 @@ function makePageForEpisodes(episodes) {
 const searchElm = document.getElementById("search");
 
 searchElm.addEventListener("input", () => {
-  document.getElementById("root").innerHTML = "";
-
   const allEpisodes = getAllEpisodes();
+  makePageForEpisodes(allEpisodes);
+
   const filteredEpisodes = filterSearch(allEpisodes, searchElm.value);
+  document.getElementById("root").innerHTML = "";
 
   makePageForEpisodes(filteredEpisodes);
   displayingNumOfEpisodes(filteredEpisodes, allEpisodes);
@@ -61,6 +66,7 @@ function filterSearch(episodes, searchInput) {
   const searchResults = episodes.filter(
     (episode) =>
       episode.name.toUpperCase().includes(searchInput.toUpperCase()) ||
+      episode.se.toUpperCase().includes(searchInput.toUpperCase()) ||
       episode.summary.toUpperCase().includes(searchInput.toUpperCase())
   );
   return searchResults;
