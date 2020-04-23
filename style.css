@@ -17,6 +17,7 @@ body {
   min-height: 450px;
   /* overflow: scroll-hidden; */
   margin-top: 10px;
+  padding: 10px;
   border: 1px solid black;
   border-radius: 5px;
 }
@@ -25,15 +26,18 @@ body {
   background-color: lightslategray;
   border: 1px solid black;
   border-radius: 5px;
-  height: 4rem;
-  margin: 16px 8px;
+  height: 50px;
+  margin: -10px;
   padding: 10px;
   display: flex;
   justify-content: center;
 }
 
 img {
-  max-width: 95%;
+  width: 100%;
+  margin-top: 20px;
+  border: 1px hidden;
+  border-radius: 5px;
 }
 
 .title {
@@ -59,18 +63,18 @@ img {
 
 @media (min-width: 640px) {
   .episode-container {
-    width: 48%;
+    width: 45%;
   }
 }
 
 @media (min-width: 768px) {
   .episode-container {
-    width: 32%;
+    width: 30%;
   }
 }
 
 @media only screen and (min-width: 1200px) {
   .episode-container {
-    width: 24%;
+    width: 22.5%;
   }
 }
