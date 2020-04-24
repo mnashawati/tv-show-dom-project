@@ -2,6 +2,17 @@ body {
   background-color: black;
 }
 
+header {
+  background-color: silver;
+  display: flex;
+  justify-content: center;
+}
+
+/* .data-origin {
+  justify-items: end;
+  align-self: flex-end;
+} */
+
 #root {
   max-width: 90%;
   margin: 20px auto;
@@ -11,7 +22,8 @@ body {
 }
 
 .episode-container {
-  background-color: #636868;
+  /* background-color: #636868; */
+  background-color: silver;
   text-align: center;
   align-items: center;
   min-height: 450px;

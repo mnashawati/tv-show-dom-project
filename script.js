@@ -31,6 +31,11 @@ function createEpisodeCard(episode) {
   nameEl.className = "name";
   nameEl.textContent = episode.name;
 
+  const selectEl = document.getElementById("select");
+  const episodeOption = document.createElement("option");
+  episodeOption.textContent = `${episode.se} - ${episode.name}`;
+  selectEl.appendChild(episodeOption);
+
   const imgEl = document.createElement("img");
   episodeContainerEl.appendChild(imgEl);
   imgEl.src = episode.image.medium.replace("http", "https");
@@ -60,16 +65,24 @@ searchElm.addEventListener("input", () => {
 
   makePageForEpisodes(filteredEpisodes);
   displayingNumOfEpisodes(filteredEpisodes, allEpisodes);
+
+  // const searchTerm = searchElm.value;
+  // if (filteredEpisodes.includes(searchTerm)) {
+  //   searchTerm.style.color = "red";
+  // }
 });
 
 function filterSearch(episodes, searchInput) {
-  const searchResults = episodes.filter(
+  const filteredResults = episodes.filter(
     (episode) =>
       episode.name.toUpperCase().includes(searchInput.toUpperCase()) ||
       episode.se.toUpperCase().includes(searchInput.toUpperCase()) ||
       episode.summary.toUpperCase().includes(searchInput.toUpperCase())
   );
-  return searchResults;
+
+  // filteredResults.forEach((result) => {
+  // })
+  return filteredResults;
 }
 
 function displayingNumOfEpisodes(array1, array2) {
@@ -77,5 +90,31 @@ function displayingNumOfEpisodes(array1, array2) {
     ".display"
   ).textContent = `Displaying: ${array1.length}/${array2.length}`;
 }
+
+// Level 300
+
+const selectEl = document.getElementById("select");
+selectEl.addEventListener("change", () => {
+  console.log(selectEl.value);
+  const selectedTerm = selectEl.value;
+  const allEpisodes = getAllEpisodes();
+  document.getElementById("root").innerHTML = "";
+  if (selectedTerm === "All Episodes") {
+    makePageForEpisodes(allEpisodes);
+  } else {
+    const selectedEpisode = allEpisodes.filter((episode) =>
+      selectedTerm.includes(episode.name)
+    );
+    console.log(selectedEpisode);
+    makePageForEpisodes(selectedEpisode);
+  }
+});
+
+// function selectEpisode(episodes, option) {
+//   const selectedEpisode = episodes.find((episode) => {
+//     option.includes(episode.se);
+//   });
+//   return selectedEpisode;
+// }
 
 window.onload = setup;

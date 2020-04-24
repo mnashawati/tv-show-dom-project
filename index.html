@@ -11,11 +11,16 @@
 </head>
 
 <body>
-  <input type="text" id="search" onkeyup="" placeholder="Search for.." />
-  <p class="display">Displaying: </p>
+  <header>
+    <input type="text" id="search" onkeyup="" placeholder="Search for.." />
+    <p class="display">Displaying: </p>
+    <select name="" id="select">
+      <option value="All Episodes">All Episodes</option>
+    </select>
+    <p class="data-origin">Data source: <a href="https://www.tvmaze.com/" target=”_blank”>TVMAZE</a></p>
+  </header>
   <div id="root">
   </div>
-  <p class="data-origin">Data source: <a href="https://www.tvmaze.com/" target=”_blank”>TVMAZE</a></p>
   <!-- Loads a provided function called getAllEpisodes() which returns all episodes -->
   <script src="episodes.js"></script>
 
