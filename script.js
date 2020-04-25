@@ -1,4 +1,3 @@
-//You can edit ALL of the code here
 function setup() {
   // const allEpisodes = getAllEpisodes();
   // makePageForEpisodes(allEpisodes);
@@ -6,56 +5,46 @@ function setup() {
   addAllShows(allShows);
 }
 
-// rootElem.textContent = `Got ${episode.length} episode(s)`;
+const rootElem = document.getElementById("root");
 
 function makePageForEpisodes(episodes) {
+  createEpisodeCodes(episodes);
+  displayNumOfEpisodes(episodes, episodes);
+
   episodes.forEach((episode) => {
     createEpisodeCard(episode);
   });
-  displayNumOfEpisodes(episodes, episodes);
 }
-// addAllEpisodesToSelection(episodes);
 
 function createEpisodeCard(episode) {
-  const rootElem = document.getElementById("root");
+  rootElem.innerHTML += `
+  <div class="episode-container">
+  <div class="title-container">
+  <p class="season-episode-num">
+  ${episode.se}
+  </p>
+  <h3 class="name">${episode.name}</h3>
+  </div>
+  <img src="${episode.image.medium}" /> 
+  <p class="summary">${episode.summary}</p>
+  </div>
+  `;
+}
 
-  const episodeContainerEl = document.createElement("div");
-  rootElem.appendChild(episodeContainerEl);
-  episodeContainerEl.className = "episode-container";
-
-  const titleContainerEl = document.createElement("div");
-  episodeContainerEl.appendChild(titleContainerEl);
-  titleContainerEl.className = "title-container";
-
-  const seasonAndEpisodeNumEl = document.createElement("p");
-  titleContainerEl.appendChild(seasonAndEpisodeNumEl);
-  seasonAndEpisodeNumEl.className = "season-episode-num";
-  seasonAndEpisodeNumEl.textContent = `S${String(episode.season).padStart(
-    2,
-    0
-  )}E${String(episode.number).padStart(2, 0)}`;
-  episode.se = seasonAndEpisodeNumEl.textContent;
-
-  const nameEl = document.createElement("h3");
-  titleContainerEl.appendChild(nameEl);
-  nameEl.className = "name";
-  nameEl.textContent = episode.name;
-
-  const imgEl = document.createElement("img");
-  episodeContainerEl.appendChild(imgEl);
-  imgEl.src = episode.image.medium.replace("http", "https");
-
-  const summaryEl = document.createElement("p");
-  episodeContainerEl.appendChild(summaryEl);
-  summaryEl.className = "summary";
-  summaryEl.innerHTML = episode.summary.replace("<p>", "").replace("</p>", "");
+function createEpisodeCodes(episodes) {
+  episodes.forEach((episode) => {
+    episode.se = `S${String(episode.season).padStart(2, 0)}E${String(
+      episode.number
+    ).padStart(2, 0)}`;
+  });
 }
 
 // Searching
 const searchElm = document.getElementById("search");
 
-searchElm.addEventListener("input", () => {
+searchElm.addEventListener("input", (e) => {
   displaySearchInput(currentShowEpisodes);
+  highlightSearchTerm(e);
 });
 
 function displaySearchInput(episodes) {
@@ -82,6 +71,10 @@ function filterSearchedEpisodes(episodes, searchInput) {
   return filteredResults;
 }
 
+function highlightSearchTerm(searchTerm) {
+  searchTerm.style.backgroundColor = "red";
+}
+
 function displayNumOfEpisodes(array1, array2) {
   document.querySelector(
     ".display"
@@ -103,13 +96,15 @@ function addAllEpisodesToSelection(episodes) {
     document.getElementById("root").innerHTML = "";
     const selectedTerm = episodeSelectEl.value;
 
-    if (selectedTerm === "All Episodes") {
+    if (selectedTerm === "=== All Episodes ===") {
       makePageForEpisodes(episodes);
+      displayNumOfEpisodes(episodes, episodes);
     } else {
       const selectedEpisode = episodes.filter((episode) =>
         selectedTerm.includes(episode.se)
       );
       makePageForEpisodes(selectedEpisode);
+      displayNumOfEpisodes(selectedEpisode, episodes);
     }
   }
 }
@@ -135,7 +130,7 @@ function addAllShows(shows) {
     });
 
   // Selecting a show
-  let currentShow = "All Shows";
+  let currentShow = [];
 
   selectShow.addEventListener("change", moveToShow);
   function moveToShow() {
@@ -146,30 +141,77 @@ function addAllShows(shows) {
 
     const allEpisodesOption = document.createElement("option");
     episodeSelectEl.appendChild(allEpisodesOption);
-    allEpisodesOption.textContent = "All Episodes";
+    allEpisodesOption.textContent = "=== All Episodes ===";
 
-    shows.forEach((show) => {
-      if (selectShow.value === show.name) {
-        getShowEpisodes(show.id);
-      }
-    });
+    const selectedShow = shows.find((show) => show.name === selectShow.value);
+    currentShow.push(selectedShow);
+    // console.log(currentShow);
+    getShowEpisodes(selectedShow.id);
   }
 }
 
 // Fetching show episodes API
 let currentShowEpisodes = [];
-const api_url = `https://api.tvmaze.com/shows/[SHOW-ID]/episodes`;
+let api_url = `https://api.tvmaze.com/shows/[SHOW-ID]/episodes`;
 function getShowEpisodes(showID) {
   let selectedApiUrl = api_url.replace("[SHOW-ID]", String(showID));
   fetch(selectedApiUrl)
     .then((response) => response.json())
     .then((data) => {
-      makePageForEpisodes(data);
-      addAllEpisodesToSelection(data);
-      displayNumOfEpisodes(data, data);
       currentShowEpisodes = data;
+      makePageForEpisodes(currentShowEpisodes);
+      addAllEpisodesToSelection(currentShowEpisodes);
     });
-  console.log(currentShowEpisodes);
+  // .catch((error) => console.log(error));
 }
 
 window.onload = setup;
+
+// const episodeContainerEl = document.createElement("div");
+// rootElem.appendChild(episodeContainerEl);
+// episodeContainerEl.className = "episode-container";
+
+// const titleContainerEl = document.createElement("div");
+// episodeContainerEl.appendChild(titleContainerEl);
+// titleContainerEl.className = "title-container";
+
+// const seasonAndEpisodeNumEl = document.createElement("p");
+// titleContainerEl.appendChild(seasonAndEpisodeNumEl);
+// seasonAndEpisodeNumEl.className = "season-episode-num";
+// seasonAndEpisodeNumEl.textContent = `S${String(episode.season).padStart(
+//   2,
+//   0
+// )}E${String(episode.number).padStart(2, 0)}`;
+// episode.se = seasonAndEpisodeNumEl.textContent;
+
+// const nameEl = document.createElement("h3");
+// titleContainerEl.appendChild(nameEl);
+// nameEl.className = "name";
+// nameEl.textContent = episode.name;
+
+// const imgEl = document.createElement("img");
+// imgEl.src = episode.image["medium"];
+// episodeContainerEl.appendChild(imgEl);
+// // .replace("http", "https");
+
+// const summaryEl = document.createElement("p");
+// episodeContainerEl.appendChild(summaryEl);
+// summaryEl.className = "summary";
+// summaryEl.innerHTML = episode.summary;
+// // .replace("<p>", "")
+// // .replace("</p>", "");
+
+// rootElem.innerHTML += `<div class="episode-container">
+//   <div class="title-container">
+//     <p class="season-episode-num" id="se">
+//       S${String(episode.season).padStart(2, 0)}E${String(
+//   episode.number
+// ).padStart(2, 0)}
+//     </p>
+//     <h3 class="name">${episode.name}</h3>
+//   </div>
+//   <img src="${episode.image.medium}"/>
+//   <p class="summary">${episode.summary}</p>
+// </div>
+// `;
+// episode.se = document.getElementById("season-episode-num").textContent;
