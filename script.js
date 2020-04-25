@@ -1,7 +1,7 @@
 //You can edit ALL of the code here
 function setup() {
-  const allEpisodes = getAllEpisodes();
-  makePageForEpisodes(allEpisodes);
+  // const allEpisodes = getAllEpisodes();
+  // makePageForEpisodes(allEpisodes);
   const allShows = getAllShows();
   addAllShows(allShows);
 }
@@ -12,9 +12,9 @@ function makePageForEpisodes(episodes) {
   episodes.forEach((episode) => {
     createEpisodeCard(episode);
   });
-  addAllEpisodesToSelection(episodes);
   displayingNumOfEpisodes(episodes, episodes);
 }
+// addAllEpisodesToSelection(episodes);
 
 function createEpisodeCard(episode) {
   const rootElem = document.getElementById("root");
@@ -51,14 +51,12 @@ function createEpisodeCard(episode) {
   summaryEl.innerHTML = episode.summary.replace("<p>", "").replace("</p>", "");
 }
 
-// Level 200
+// Searching
 const searchElm = document.getElementById("search");
 
-searchElm.addEventListener("input", () => {
-  const allEpisodes = getAllEpisodes();
-  makePageForEpisodes(allEpisodes);
-
-  const filteredEpisodes = filterSearch(allEpisodes, searchElm.value);
+searchElm.addEventListener("input", displaySearchInput);
+function displaySearchInput(episodes) {
+  const filteredEpisodes = filterSearch(episodes, searchElm.value);
   document.getElementById("root").innerHTML = "";
 
   makePageForEpisodes(filteredEpisodes);
@@ -69,7 +67,7 @@ searchElm.addEventListener("input", () => {
   // if (filteredEpisodes.includes(searchTerm)) {
   //   searchTerm.style.color = "red";
   // }
-});
+}
 
 function filterSearch(episodes, searchInput) {
   const filteredResults = episodes.filter(
@@ -88,30 +86,30 @@ function displayingNumOfEpisodes(array1, array2) {
 }
 
 // Selecting Episodes
-const episodeSelectEl = document.getElementById("episode-select");
-
 function addAllEpisodesToSelection(episodes) {
+  const episodeSelectEl = document.getElementById("episode-select");
+
   episodes.forEach((episode) => {
     const episodeOptionEl = document.createElement("option");
-    episodeOptionEl.textContent = `${episode.se} - ${episode.name}`;
     episodeSelectEl.appendChild(episodeOptionEl);
+    episodeOptionEl.textContent = `${episode.se} - ${episode.name}`;
   });
-}
+  // Show Selected episode
+  episodeSelectEl.addEventListener("change", moveToEpisode);
+  function moveToEpisode() {
+    document.getElementById("root").innerHTML = "";
+    const selectedTerm = episodeSelectEl.value;
 
-episodeSelectEl.addEventListener("change", () => {
-  // console.log(episodeSelectEl.value);
-  const selectedTerm = episodeSelectEl.value;
-  document.getElementById("root").innerHTML = "";
-  if (selectedTerm === "All Episodes") {
-    makePageForEpisodes(allEpisodes);
-  } else {
-    const selectedEpisode = allEpisodes.filter((episode) =>
-      selectedTerm.includes(episode.name)
-    );
-    // console.log(selectedEpisode);
-    makePageForEpisodes(selectedEpisode);
+    if (selectedTerm === "All Episodes") {
+      makePageForEpisodes(episodes);
+    } else {
+      const selectedEpisode = episodes.filter((episode) =>
+        selectedTerm.includes(episode.se)
+      );
+      makePageForEpisodes(selectedEpisode);
+    }
   }
-});
+}
 
 // function selectEpisode(episodes, option) {
 //   const selectedEpisode = episodes.find((episode) => {
@@ -131,17 +129,26 @@ function addAllShows(shows) {
       selectShow.appendChild(showOption);
       showOption.textContent = show.name;
     });
+
+  // Selecting a show
   selectShow.addEventListener("change", moveToShow);
   function moveToShow() {
-    document.getElementById("episode-select").innerHTML = "";
     document.getElementById("root").innerHTML = "";
+
+    const episodeSelectEl = document.getElementById("episode-select");
+    episodeSelectEl.innerHTML = "";
+
+    const allEpisodesOption = document.createElement("option");
+    episodeSelectEl.appendChild(allEpisodesOption);
+    allEpisodesOption.textContent = "All Episodes";
+
     shows.forEach((show) => {
       if (selectShow.value === show.name) {
-        let allShowEpisodes = getShowEpisodes(show.id);
-        console.log(allShowEpisodes);
-        // makePageForEpisodes(allShowEpisodes);
+        getShowEpisodes(show.id);
       }
     });
+
+    // addAllEpisodesToSelection(episodes);
   }
 }
 
@@ -154,13 +161,6 @@ function getShowEpisodes(showID) {
       makePageForEpisodes(data);
       addAllEpisodesToSelection(data);
     });
-  // const data = await response.json();
-  // console.log(Array.from(data));
-  // console.log(selectedApiUrl);
-  // return Array.from(data);
-  // console.log(data);
-  // console.log(typeof data);
-  // return data;
 }
 
 window.onload = setup;
