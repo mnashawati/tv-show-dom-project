@@ -134,23 +134,34 @@ function addAllShows(shows) {
       if (selectShow.value === show.name) {
         let allShowEpisodes = getShowEpisodes(show.id);
         // console.log(allShowEpisodes);
-        makePageForEpisodes(allShowEpisodes);
+        // makePageForEpisodes(allShowEpisodes);
       }
     });
   }
 }
 
 const api_url = `https://api.tvmaze.com/shows/[SHOW-ID]/episodes`;
-async function getShowEpisodes(showID) {
+function getShowEpisodes(showID) {
   let selectedApiUrl = api_url.replace("[SHOW-ID]", String(showID));
-  const response = await fetch(selectedApiUrl);
-  const data = await response.json();
+  fetch(selectedApiUrl)
+    .then((response) => response.json())
+    .then((data) => makePageForEpisodes(data));
+  // const data = await response.json();
   // console.log(Array.from(data));
-  console.log(selectedApiUrl);
+  // console.log(selectedApiUrl);
   // return Array.from(data);
-  console.log(data);
+  // console.log(data);
   // console.log(typeof data);
-  return data;
+  // return data;
 }
 
 window.onload = setup;
+
+// function callFetch(episodesUrl) {
+//   fetch(episodesUrl)
+//     .then((response) => response.json())
+//     .then((data) => {
+//       makePageForEpisodes(data);
+//       selectEpisode(data);
+//       searchInput();
+//     });
