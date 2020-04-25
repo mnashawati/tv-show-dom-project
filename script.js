@@ -40,10 +40,6 @@ function createEpisodeCard(episode) {
   nameEl.className = "name";
   nameEl.textContent = episode.name;
 
-  const episodeSelectEl = document.getElementById("episode-select");
-  const episodeOption = document.createElement("option");
-  episodeOption.textContent = `${episode.se} - ${episode.name}`;
-  episodeSelectEl.appendChild(episodeOption);
 
   const imgEl = document.createElement("img");
   episodeContainerEl.appendChild(imgEl);
@@ -91,13 +87,20 @@ function displayingNumOfEpisodes(array1, array2) {
   ).textContent = `Displaying: ${array1.length}/${array2.length}`;
 }
 
-// Level 300
-
+// Selecting Episodes
 const episodeSelectEl = document.getElementById("episode-select");
+
+function addAllEpisodesToSelection(episodes) {
+  episodes.forEach((episode) => {
+    const episodeOptionEl = document.createElement("option");
+    episodeOptionEl.textContent = `${episode.se} - ${episode.name}`;
+    episodeSelectEl.appendChild(episodeOptionEl);
+  });
+}
+
 episodeSelectEl.addEventListener("change", () => {
   // console.log(episodeSelectEl.value);
   const selectedTerm = episodeSelectEl.value;
-  const allEpisodes = getAllEpisodes();
   document.getElementById("root").innerHTML = "";
   if (selectedTerm === "All Episodes") {
     makePageForEpisodes(allEpisodes);
@@ -120,7 +123,9 @@ episodeSelectEl.addEventListener("change", () => {
 function addAllShows(shows) {
   const selectShow = document.getElementById("show-select");
   shows
-    .sort((showA, showB) => (showA.name > showB.name ? 1 : -1))
+    .sort((showA, showB) =>
+      showA.name.toUpperCase() > showB.name.toUpperCase() ? 1 : -1
+    )
     .forEach((show) => {
       const showOption = document.createElement("option");
       selectShow.appendChild(showOption);
@@ -128,12 +133,12 @@ function addAllShows(shows) {
     });
   selectShow.addEventListener("change", moveToShow);
   function moveToShow() {
+    document.getElementById("episode-select").innerHTML = "";
     document.getElementById("root").innerHTML = "";
-
     shows.forEach((show) => {
       if (selectShow.value === show.name) {
         let allShowEpisodes = getShowEpisodes(show.id);
-        // console.log(allShowEpisodes);
+        console.log(allShowEpisodes);
         // makePageForEpisodes(allShowEpisodes);
       }
     });
@@ -145,7 +150,10 @@ function getShowEpisodes(showID) {
   let selectedApiUrl = api_url.replace("[SHOW-ID]", String(showID));
   fetch(selectedApiUrl)
     .then((response) => response.json())
-    .then((data) => makePageForEpisodes(data));
+    .then((data) => {
+      makePageForEpisodes(data);
+      addAllEpisodesToSelection(data);
+    });
   // const data = await response.json();
   // console.log(Array.from(data));
   // console.log(selectedApiUrl);
