@@ -12,6 +12,7 @@ function makePageForEpisodes(episodes) {
   episodes.forEach((episode) => {
     createEpisodeCard(episode);
   });
+  addAllEpisodesToSelection(episodes);
   displayingNumOfEpisodes(episodes, episodes);
 }
 
@@ -39,7 +40,6 @@ function createEpisodeCard(episode) {
   titleContainerEl.appendChild(nameEl);
   nameEl.className = "name";
   nameEl.textContent = episode.name;
-
 
   const imgEl = document.createElement("img");
   episodeContainerEl.appendChild(imgEl);
