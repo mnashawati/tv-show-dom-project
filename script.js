@@ -12,7 +12,7 @@ function makePageForEpisodes(episodes) {
   episodes.forEach((episode) => {
     createEpisodeCard(episode);
   });
-  displayingNumOfEpisodes(episodes, episodes);
+  displayNumOfEpisodes(episodes, episodes);
 }
 // addAllEpisodesToSelection(episodes);
 
@@ -54,13 +54,16 @@ function createEpisodeCard(episode) {
 // Searching
 const searchElm = document.getElementById("search");
 
-searchElm.addEventListener("input", displaySearchInput);
+searchElm.addEventListener("input", () => {
+  displaySearchInput(currentShowEpisodes);
+});
+
 function displaySearchInput(episodes) {
-  const filteredEpisodes = filterSearch(episodes, searchElm.value);
+  const filteredEpisodes = filterSearchedEpisodes(episodes, searchElm.value);
   document.getElementById("root").innerHTML = "";
 
   makePageForEpisodes(filteredEpisodes);
-  displayingNumOfEpisodes(filteredEpisodes, allEpisodes);
+  displayNumOfEpisodes(filteredEpisodes, episodes);
 
   // HIGHLIGHTING ATTEMPT:
   // const searchTerm = searchElm.value;
@@ -69,17 +72,17 @@ function displaySearchInput(episodes) {
   // }
 }
 
-function filterSearch(episodes, searchInput) {
+function filterSearchedEpisodes(episodes, searchInput) {
   const filteredResults = episodes.filter(
     (episode) =>
-      episode.name.toUpperCase().includes(searchInput.toUpperCase()) ||
       episode.se.toUpperCase().includes(searchInput.toUpperCase()) ||
+      episode.name.toUpperCase().includes(searchInput.toUpperCase()) ||
       episode.summary.toUpperCase().includes(searchInput.toUpperCase())
   );
   return filteredResults;
 }
 
-function displayingNumOfEpisodes(array1, array2) {
+function displayNumOfEpisodes(array1, array2) {
   document.querySelector(
     ".display"
   ).textContent = `Displaying: ${array1.length}/${array2.length}`;
@@ -118,6 +121,7 @@ function addAllEpisodesToSelection(episodes) {
 //   return selectedEpisode;
 // }
 
+// Adding shows to select menu
 function addAllShows(shows) {
   const selectShow = document.getElementById("show-select");
   shows
@@ -131,6 +135,8 @@ function addAllShows(shows) {
     });
 
   // Selecting a show
+  let currentShow = "All Shows";
+
   selectShow.addEventListener("change", moveToShow);
   function moveToShow() {
     document.getElementById("root").innerHTML = "";
@@ -147,11 +153,11 @@ function addAllShows(shows) {
         getShowEpisodes(show.id);
       }
     });
-
-    // addAllEpisodesToSelection(episodes);
   }
 }
 
+// Fetching show episodes API
+let currentShowEpisodes = [];
 const api_url = `https://api.tvmaze.com/shows/[SHOW-ID]/episodes`;
 function getShowEpisodes(showID) {
   let selectedApiUrl = api_url.replace("[SHOW-ID]", String(showID));
@@ -160,7 +166,10 @@ function getShowEpisodes(showID) {
     .then((data) => {
       makePageForEpisodes(data);
       addAllEpisodesToSelection(data);
+      displayNumOfEpisodes(data, data);
+      currentShowEpisodes = data;
     });
+  console.log(currentShowEpisodes);
 }
 
 window.onload = setup;
