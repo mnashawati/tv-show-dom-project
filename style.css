@@ -5,7 +5,10 @@ body {
 header {
   background-color: silver;
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
+  align-items: baseline;
+  width: 100%;
 }
 
 /* .data-origin {
@@ -81,7 +84,7 @@ img {
 
 .data-origin,
 .display {
-  color: beige;
+  color: black;
 }
 
 @media (min-width: 576px) {

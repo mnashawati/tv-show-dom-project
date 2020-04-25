@@ -2,9 +2,18 @@
 function setup() {
   const allEpisodes = getAllEpisodes();
   makePageForEpisodes(allEpisodes);
+  const allShows = getAllShows();
+  addAllShows(allShows);
 }
 
 // rootElem.textContent = `Got ${episode.length} episode(s)`;
+
+function makePageForEpisodes(episodes) {
+  episodes.forEach((episode) => {
+    createEpisodeCard(episode);
+  });
+  displayingNumOfEpisodes(episodes, episodes);
+}
 
 function createEpisodeCard(episode) {
   const rootElem = document.getElementById("root");
@@ -31,10 +40,10 @@ function createEpisodeCard(episode) {
   nameEl.className = "name";
   nameEl.textContent = episode.name;
 
-  const selectEl = document.getElementById("select");
+  const episodeSelectEl = document.getElementById("episode-select");
   const episodeOption = document.createElement("option");
   episodeOption.textContent = `${episode.se} - ${episode.name}`;
-  selectEl.appendChild(episodeOption);
+  episodeSelectEl.appendChild(episodeOption);
 
   const imgEl = document.createElement("img");
   episodeContainerEl.appendChild(imgEl);
@@ -44,13 +53,6 @@ function createEpisodeCard(episode) {
   episodeContainerEl.appendChild(summaryEl);
   summaryEl.className = "summary";
   summaryEl.innerHTML = episode.summary.replace("<p>", "").replace("</p>", "");
-}
-
-function makePageForEpisodes(episodes) {
-  episodes.forEach((episode) => {
-    createEpisodeCard(episode);
-  });
-  displayingNumOfEpisodes(episodes, episodes);
 }
 
 // Level 200
@@ -66,6 +68,7 @@ searchElm.addEventListener("input", () => {
   makePageForEpisodes(filteredEpisodes);
   displayingNumOfEpisodes(filteredEpisodes, allEpisodes);
 
+  // HIGHLIGHTING ATTEMPT:
   // const searchTerm = searchElm.value;
   // if (filteredEpisodes.includes(searchTerm)) {
   //   searchTerm.style.color = "red";
@@ -79,9 +82,6 @@ function filterSearch(episodes, searchInput) {
       episode.se.toUpperCase().includes(searchInput.toUpperCase()) ||
       episode.summary.toUpperCase().includes(searchInput.toUpperCase())
   );
-
-  // filteredResults.forEach((result) => {
-  // })
   return filteredResults;
 }
 
@@ -93,10 +93,10 @@ function displayingNumOfEpisodes(array1, array2) {
 
 // Level 300
 
-const selectEl = document.getElementById("select");
-selectEl.addEventListener("change", () => {
-  console.log(selectEl.value);
-  const selectedTerm = selectEl.value;
+const episodeSelectEl = document.getElementById("episode-select");
+episodeSelectEl.addEventListener("change", () => {
+  // console.log(episodeSelectEl.value);
+  const selectedTerm = episodeSelectEl.value;
   const allEpisodes = getAllEpisodes();
   document.getElementById("root").innerHTML = "";
   if (selectedTerm === "All Episodes") {
@@ -105,7 +105,7 @@ selectEl.addEventListener("change", () => {
     const selectedEpisode = allEpisodes.filter((episode) =>
       selectedTerm.includes(episode.name)
     );
-    console.log(selectedEpisode);
+    // console.log(selectedEpisode);
     makePageForEpisodes(selectedEpisode);
   }
 });
@@ -116,5 +116,41 @@ selectEl.addEventListener("change", () => {
 //   });
 //   return selectedEpisode;
 // }
+
+function addAllShows(shows) {
+  const selectShow = document.getElementById("show-select");
+  shows
+    .sort((showA, showB) => (showA.name > showB.name ? 1 : -1))
+    .forEach((show) => {
+      const showOption = document.createElement("option");
+      selectShow.appendChild(showOption);
+      showOption.textContent = show.name;
+    });
+  selectShow.addEventListener("change", moveToShow);
+  function moveToShow() {
+    document.getElementById("root").innerHTML = "";
+
+    shows.forEach((show) => {
+      if (selectShow.value === show.name) {
+        let allShowEpisodes = getShowEpisodes(show.id);
+        // console.log(allShowEpisodes);
+        makePageForEpisodes(allShowEpisodes);
+      }
+    });
+  }
+}
+
+const api_url = `https://api.tvmaze.com/shows/[SHOW-ID]/episodes`;
+async function getShowEpisodes(showID) {
+  let selectedApiUrl = api_url.replace("[SHOW-ID]", String(showID));
+  const response = await fetch(selectedApiUrl);
+  const data = await response.json();
+  // console.log(Array.from(data));
+  console.log(selectedApiUrl);
+  // return Array.from(data);
+  console.log(data);
+  // console.log(typeof data);
+  return data;
+}
 
 window.onload = setup;
