@@ -156,12 +156,3 @@ function getShowEpisodes(showID) {
 }
 
 window.onload = setup;
-
-// function callFetch(episodesUrl) {
-//   fetch(episodesUrl)
-//     .then((response) => response.json())
-//     .then((data) => {
-//       makePageForEpisodes(data);
-//       selectEpisode(data);
-//       searchInput();
-//     });
