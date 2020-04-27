@@ -10,6 +10,7 @@ let isDisplayingEpisodes = false;
 let episodes_api_url = `https://api.tvmaze.com/shows/[SHOW-ID]/episodes`;
 
 function setup() {
+  addAllShowsToSelectionMenu(allShows);
   displayAllShows(allShows);
 }
 
@@ -187,6 +188,7 @@ function moveToEpisode(episodes) {
     displayNumber(selectedEp, episodes, "Episodes");
   }
 }
+
 // Selecting shows
 selectShowEl.addEventListener("change", () => {
   moveToShow(allShows);
@@ -251,12 +253,11 @@ function createShowCard(show) {
 }
 
 function displayAllShows(shows) {
-  addAllShowsToSelectionMenu(shows);
   emptyRootElement();
   shows.forEach((show) => {
     createShowCard(show);
   });
-  // displayNumber(shows, shows, "Shows");
+  displayNumber(allShows, allShows, "Shows");
 }
 
 window.onload = setup;
