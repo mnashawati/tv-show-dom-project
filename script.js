@@ -1,11 +1,14 @@
 const allShows = getAllShows();
 const rootElem = document.getElementById("root");
+const selectShowEl = document.getElementById("select-show");
+const selectEpisodeEl = document.getElementById("select-episode");
+const searchElm = document.getElementById("search");
+
+let currentShowEpisodes = [];
+let episodes_api_url = `https://api.tvmaze.com/shows/[SHOW-ID]/episodes`;
 
 function setup() {
-  // const allEpisodes = getAllEpisodes();
-  // makePageForEpisodes(allEpisodes);
-  addAllShows(allShows);
-
+  addAllShowsToSelectionMenu(allShows);
   // Get shows data
 }
 
@@ -61,21 +64,6 @@ function createEpisodeCard(episode) {
   summaryEl.className = "summary";
   // .replace("<p>", "")
   // .replace("</p>", "");
-
-  // rootElem.innerHTML += `
-  // <div class="episode-container">
-  //   <div class="title-container">
-  //     <p class="season-episode-num">${episode.se}</p>
-  //     <h3 class="name">${episode.name}</h3>
-  //   </div>
-  //   <script>
-  //   if (episode.image != null) {
-  //     <img src="${episode.image.medium.replace("http", "https")}" />
-  //   }
-  //   </script>
-  //   <p class="summary">${episode.summary}</p>
-  // </div>
-  // `;
 }
 
 function displayNumOfEpisodes(array1, array2) {
@@ -89,14 +77,13 @@ function emptyRootElement() {
 }
 
 // Searching
-const searchElm = document.getElementById("search");
 searchElm.addEventListener("input", () => {
-  displaySearchInput(currentShowEpisodes);
+  displaySearchInput(currentShowEpisodes, searchElm.value);
   // highlightSearchTerm(e);
 });
 
-function displaySearchInput(episodes) {
-  const filteredEpisodes = filterSearchedEpisodes(episodes, searchElm.value);
+function displaySearchInput(episodes, searchInput) {
+  const filteredEpisodes = filterSearchedEpisodes(episodes, searchInput);
 
   emptyRootElement();
   makePageForEpisodes(filteredEpisodes);
@@ -123,24 +110,16 @@ function filterSearchedEpisodes(episodes, searchInput) {
 //   searchTerm.style.backgroundColor = "red";
 // }
 
-function addAllEpisodesToSelection(episodes) {
-  episodes.forEach((episode) => {
-    const episodeOptionEl = document.createElement("option");
-    episodeSelectEl.appendChild(episodeOptionEl);
-    episodeOptionEl.textContent = `${episode.se} - ${episode.name}`;
-  });
-}
 // Selecting Episodes
-const episodeSelectEl = document.getElementById("select-episode");
 
 // Show Selected episode
-episodeSelectEl.addEventListener("change", () => {
+selectEpisodeEl.addEventListener("change", () => {
   moveToEpisode(currentShowEpisodes);
 });
 
 function moveToEpisode(episodes) {
   emptyRootElement();
-  const selectedTerm = episodeSelectEl.value;
+  const selectedTerm = selectEpisodeEl.value;
 
   if (selectedTerm === "=== All Episodes ===") {
     makePageForEpisodes(episodes);
@@ -161,25 +140,31 @@ function moveToEpisode(episodes) {
 // }
 
 // Adding shows to select menu
-const selectShow = document.getElementById("select-show");
-
-function addAllShows(shows) {
+function addAllShowsToSelectionMenu(shows) {
   shows
     .sort((showA, showB) =>
       showA.name.toUpperCase() > showB.name.toUpperCase() ? 1 : -1
     )
     .forEach((show) => {
       const showOption = document.createElement("option");
-      selectShow.appendChild(showOption);
+      selectShowEl.appendChild(showOption);
       showOption.textContent = show.name;
       // showOption.value = show.id;
     });
 }
 
+function addAllEpisodesToSelection(episodes) {
+  episodes.forEach((episode) => {
+    const episodeOptionEl = document.createElement("option");
+    selectEpisodeEl.appendChild(episodeOptionEl);
+    episodeOptionEl.textContent = `${episode.se} - ${episode.name}`;
+  });
+}
+
 // Selecting a show
 // let currentShow;
 
-selectShow.addEventListener("change", () => {
+selectShowEl.addEventListener("change", () => {
   moveToShow(allShows);
 });
 
@@ -188,19 +173,16 @@ function moveToShow(shows) {
   document.getElementById("select-episode").innerHTML = "";
 
   const allEpisodesOption = document.createElement("option");
-  episodeSelectEl.appendChild(allEpisodesOption);
+  selectEpisodeEl.appendChild(allEpisodesOption);
   allEpisodesOption.textContent = "=== All Episodes ===";
 
-  const selectedShow = shows.find((show) => show.name === selectShow.value);
+  const selectedShow = shows.find((show) => show.name === selectShowEl.value);
   getShowEpisodes(selectedShow.id);
 }
 
 // Fetching show episodes API
-let currentShowEpisodes = [];
-let api_url = `https://api.tvmaze.com/shows/[SHOW-ID]/episodes`;
-
 function getShowEpisodes(showID) {
-  let selectedApiUrl = api_url.replace("[SHOW-ID]", String(showID));
+  let selectedApiUrl = episodes_api_url.replace("[SHOW-ID]", String(showID));
   fetch(selectedApiUrl)
     .then((response) => response.json())
     .then((data) => {
@@ -213,3 +195,16 @@ function getShowEpisodes(showID) {
 }
 
 window.onload = setup;
+
+// HTML template for creating episode card (Not used because it doesn't filter for corrupted images which are causing errors)
+
+// rootElem.innerHTML += `
+// <div class="episode-container">
+//   <div class="title-container">
+//     <p class="season-episode-num">${episode.se}</p>
+//     <h3 class="name">${episode.name}</h3>
+//   </div>
+//   <img src="${episode.image.medium.replace("http", "https")}" />
+//   <p class="summary">${episode.summary}</p>
+// </div>
+// `;
