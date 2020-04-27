@@ -12,29 +12,22 @@
 
 <body>
   <header>
-    <select name="" id="select-show" class="select-show">
-      <option value="All Shows">=== All Shows ===</option>
-    </select>
-    <select name="" id="select-episode" class="select-episode">
-      <!-- <option value="All Episodes">Episodes</option> -->
-    </select>
+    <select name="" id="select-show" class="select-show"></select>
+
+    <select name="" id="select-episode" class="select-episode"></select>
+
     <input type="text" id="search" class="search" onkeyup="" placeholder="Search for.." />
+
     <p class="display">Displaying: </p>
+
     <p class="data-origin">Data source: <a href="https://www.tvmaze.com/" target=”_blank”>TVMAZE</a></p>
   </header>
   <div id="root" class="container">
   </div>
+
   <!-- Loads a provided function called getAllEpisodes() which returns all episodes -->
   <script src="episodes.js"></script>
-  <!-- <script>
-    const api_url = "https://api.tvmaze.com/shows "
-    async function getShows() {
-      const response = await fetch(api_url);
-      const data = await response.json();
-      console.log(Array.from(data))
-    }
-    getShows()
-  </script> -->
+
   <script src="shows.js"></script>
   <!-- Loads YOUR javascript code -->
   <script src="script.js"></script>

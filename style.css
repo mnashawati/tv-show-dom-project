@@ -11,12 +11,14 @@ header {
   width: 100%;
 }
 
-.select-show {
+.select-show,
+.select-episode {
   width: 25%;
   /* min-height: 200px; */
 }
-.select-episode {
-  width: 25%;
+
+.show-option,
+.episode-option {
 }
 
 .search {
@@ -100,6 +102,30 @@ img {
 .summary {
   /* padding: 0 16px; */
   text-align: justify;
+}
+
+.show-card-container {
+  color: white;
+  border: 1px solid white;
+  margin: 10px;
+}
+
+.show-card-body {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+
+.show-img {
+  width: 25%;
+}
+
+.show-summary {
+  width: 50%;
+}
+
+.show-info {
+  width: 25%;
 }
 
 @media (min-width: 576px) {
