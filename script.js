@@ -9,12 +9,24 @@ let currentShowEpisodes = [];
 let isDisplayingEpisodes = false;
 let episodes_api_url = `https://api.tvmaze.com/shows/[SHOW-ID]/episodes`;
 
+function hideEpisodeSelectionMenu() {
+  selectEpisodeEl.style.display = "none";
+  isDisplayingEpisodes = false;
+}
+
+function showEpisodeSelectionMenu() {
+  selectEpisodeEl.style.display = "initial";
+  isDisplayingEpisodes = true;
+}
+
 function setup() {
   addAllShowsToSelectionMenu(allShows);
   displayAllShows(allShows);
+  hideEpisodeSelectionMenu();
 }
 
 function makePageForEpisodes(episodes) {
+  emptyRootElement();
   episodes.forEach((episode) => {
     createEpisodeCode(episode);
     createEpisodeCard(episode);
@@ -189,24 +201,32 @@ function moveToEpisode(episodes) {
   }
 }
 
+// const showNameBtn = document.querySelectorAll("show-name");
+
+// showNameBtn.forEach((btn) =>
+//   btn.addEventListener("click", () => {
+//     moveToShow(allShows, btn.innerText);
+//   })
+// );
+
 // Selecting shows
 selectShowEl.addEventListener("change", () => {
-  moveToShow(allShows);
+  moveToShow(allShows, selectShowEl.value);
 });
 
-function moveToShow(shows) {
+function moveToShow(shows, value) {
   emptyRootElement();
   document.getElementById("select-episode").innerHTML = "";
 
-  const selectedShow = selectShowEl.value;
+  const selectedShow = value;
 
   if (selectedShow === "=== All Shows ===") {
     displayAllShows(allShows);
-    isDisplayingEpisodes = false;
+    hideEpisodeSelectionMenu();
   } else {
     currentShow = shows.find((show) => show.name === selectedShow);
     getShowEpisodes(currentShow.id);
-    isDisplayingEpisodes = true;
+    showEpisodeSelectionMenu();
   }
 }
 
@@ -235,21 +255,62 @@ function separateGenres(genres) {
 
 function createShowCard(show) {
   const separatedGenres = separateGenres(show.genres);
-  rootElem.innerHTML += `
-    <div class="show-card-container">
-      <h2>${show.name}</h2>
-      <div class="show-card-body">
-        <img class ="show-img" src="${show.image.medium}" />
-        <p class="show-summary">${show.summary}</p>
-        <div class="show-info">
-          <p class="rating">Rating: ${String(show.rating.average)}</p>
-          <p class="genres">Genres: ${separatedGenres}</p>
-          <p class="status">Status: ${show.status}</p>
-          <p class="runtime">Runtime: ${show.runtime}</p> 
-        </div>
-      </div>
-    </div>
-  `;
+
+  const showCardContainerEl = document.createElement("div");
+  rootElem.appendChild(showCardContainerEl);
+  showCardContainerEl.className = "show-card-container";
+
+  const showNameEl = document.createElement("div");
+  showCardContainerEl.appendChild(showNameEl);
+  showNameEl.className = "show-name-container";
+
+  const showNameLink = document.createElement("a");
+  showNameEl.appendChild(showNameLink);
+  showNameLink.textContent = show.name;
+  showNameLink.addEventListener("click", () => {
+    selectShowEl.value = showNameLink.innerText;
+    moveToShow(allShows, showNameLink.innerText);
+  });
+
+  const showCardBodyEl = document.createElement("div");
+  showCardContainerEl.appendChild(showCardBodyEl);
+  showCardBodyEl.className = "show-card-body";
+
+  const showImgEl = document.createElement("img");
+  showCardBodyEl.appendChild(showImgEl);
+  showImgEl.className = "show-img";
+  showImgEl.src = show.image.medium;
+
+  const showSummaryEl = document.createElement("p");
+  showCardBodyEl.appendChild(showSummaryEl);
+  showSummaryEl.className = "show-summary";
+  showSummaryEl.textContent = show.summary
+    .replace("<b>", "")
+    .replace("</b>", "");
+
+  const showInfoEl = document.createElement("div");
+  showCardBodyEl.appendChild(showInfoEl);
+  showInfoEl.className = "show-info";
+
+  const showRatingEl = document.createElement("p");
+  showInfoEl.appendChild(showRatingEl);
+  showRatingEl.className = "show-rating";
+  showRatingEl.innerHTML = `Rating: ${String(show.rating.average)}`;
+
+  const showGenresEl = document.createElement("p");
+  showInfoEl.appendChild(showGenresEl);
+  showGenresEl.className = "show-genres";
+  showGenresEl.textContent = `Genres: ${separatedGenres}`;
+
+  const showStatusEl = document.createElement("p");
+  showInfoEl.appendChild(showStatusEl);
+  showStatusEl.className = "show-status";
+  showStatusEl.textContent = `Status: ${show.status}`;
+
+  const showRuntimeEl = document.createElement("p");
+  showInfoEl.appendChild(showRuntimeEl);
+  showRuntimeEl.className = "show-runtime";
+  showRuntimeEl.textContent = `Runtime: ${show.runtime}`;
 }
 
 function displayAllShows(shows) {
@@ -274,3 +335,22 @@ window.onload = setup;
 //   <p class="summary">${episode.summary}</p>
 // </div>
 // `;
+
+// function createShowCardTemplate(show) {
+//   const separatedGenres = separateGenres(show.genres);
+//   rootElem.innerHTML += `
+//     <div class="show-card-container">
+//       <button type="button" class="show-name">${show.name}</button>
+//       <div class="show-card-body">
+//         <img class ="show-img" src="${show.image.medium}" />
+//         <p class="show-summary">${show.summary}</p>
+//         <div class="show-info">
+//           <p class="rating">Rating: ${String(show.rating.average)}</p>
+//           <p class="genres">Genres: ${separatedGenres}</p>
+//           <p class="status">Status: ${show.status}</p>
+//           <p class="runtime">Runtime: ${show.runtime}</p>
+//         </div>
+//       </div>
+//     </div>
+//   `;
+// }
