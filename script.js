@@ -17,7 +17,7 @@ function makePageForEpisodes(episodes) {
     createEpisodeCode(episode);
     createEpisodeCard(episode);
   });
-  displayNumOfEpisodes(episodes, episodes);
+  displayNumber(episodes, episodes, "Episodes");
 }
 
 function createEpisodeCode(episode) {
@@ -66,10 +66,10 @@ function createEpisodeCard(episode) {
   // .replace("</p>", "");
 }
 
-function displayNumOfEpisodes(array1, array2) {
+function displayNumber(array1, array2, type) {
   document.querySelector(
     ".display"
-  ).textContent = `Displaying:${array1.length}/${array2.length}`;
+  ).textContent = `Displaying:${array1.length}/${array2.length} ${type}`;
 }
 
 function emptyRootElement() {
@@ -87,7 +87,7 @@ function displaySearchInput(episodes, searchInput) {
 
   emptyRootElement();
   makePageForEpisodes(filteredEpisodes);
-  displayNumOfEpisodes(filteredEpisodes, episodes);
+  displayNumber(filteredEpisodes, episodes, "Episodes");
 
   // HIGHLIGHTING ATTEMPT:
   // const searchTerm = searchElm.value;
@@ -161,7 +161,7 @@ function moveToEpisode(episodes) {
       selectedEpisode.includes(episode.se)
     );
     makePageForEpisodes(selectedEp);
-    displayNumOfEpisodes(selectedEp, episodes);
+    displayNumber(selectedEp, episodes, "Episodes");
   }
 }
 // Selecting shows
@@ -220,7 +220,7 @@ function displayAllShows(shows) {
   shows.forEach((show) => {
     createShowCard(show);
   });
-  displayNumOfEpisodes(shows, shows);
+  displayNumber(shows, shows, "Shows");
 }
 
 window.onload = setup;
