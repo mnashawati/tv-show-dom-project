@@ -12,17 +12,17 @@
 
 <body>
   <header>
-    <select name="" id="show-select">
+    <select name="" id="select-show" class="select-show">
       <option value="All Shows">=== All Shows ===</option>
     </select>
-    <select name="" id="episode-select">
+    <select name="" id="select-episode" class="select-episode">
       <!-- <option value="All Episodes">Episodes</option> -->
     </select>
-    <input type="text" id="search" onkeyup="" placeholder="Search for.." />
+    <input type="text" id="search" class="search" onkeyup="" placeholder="Search for.." />
     <p class="display">Displaying: </p>
     <p class="data-origin">Data source: <a href="https://www.tvmaze.com/" target=”_blank”>TVMAZE</a></p>
   </header>
-  <div id="root">
+  <div id="root" class="container">
   </div>
   <!-- Loads a provided function called getAllEpisodes() which returns all episodes -->
   <script src="episodes.js"></script>

@@ -11,12 +11,31 @@ header {
   width: 100%;
 }
 
-/* .data-origin {
-  justify-items: end;
-  align-self: flex-end;
-} */
+.select-show {
+  width: 25%;
+  /* min-height: 200px; */
+}
+.select-episode {
+  width: 25%;
+}
 
-#root {
+.search {
+  width: 15%;
+}
+
+.data-origin,
+.display {
+  color: black;
+  width: 15%;
+}
+
+.data-origin {
+  /* width: 15%; */
+  /* justify-items: end;
+  align-self: flex-end; */
+}
+
+.container {
   max-width: 90%;
   margin: 20px auto;
   display: flex;
@@ -81,11 +100,6 @@ img {
 .summary {
   /* padding: 0 16px; */
   text-align: justify;
-}
-
-.data-origin,
-.display {
-  color: black;
 }
 
 @media (min-width: 576px) {
