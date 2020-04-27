@@ -119,25 +119,18 @@ selectEpisodeEl.addEventListener("change", () => {
 
 function moveToEpisode(episodes) {
   emptyRootElement();
-  const selectedTerm = selectEpisodeEl.value;
+  const selectedEpisode = selectEpisodeEl.value;
 
-  if (selectedTerm === "=== All Episodes ===") {
+  if (selectedEpisode === "=== All Episodes ===") {
     makePageForEpisodes(episodes);
   } else {
     const selectedEpisode = episodes.filter((episode) =>
-      selectedTerm.includes(episode.se)
+      selectedEpisode.includes(episode.se)
     );
     makePageForEpisodes(selectedEpisode);
     displayNumOfEpisodes(selectedEpisode, episodes);
   }
 }
-
-// function selectEpisode(episodes, option) {
-//   const selectedEpisode = episodes.find((episode) => {
-//     option.includes(episode.se);
-//   });
-//   return selectedEpisode;
-// }
 
 // Adding shows to select menu
 function addAllShowsToSelectionMenu(shows) {
