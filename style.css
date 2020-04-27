@@ -110,22 +110,43 @@ img {
   margin: 10px;
 }
 
+.show-name-link {
+  padding: 20px;
+  color: black;
+  text-align: center;
+  margin: 0;
+  background-color: yellow;
+}
+
+.show-name-link:hover {
+  cursor: pointer;
+}
+
 .show-card-body {
   display: flex;
+  /* flex-wrap: wrap; */
+  margin: 20px;
   width: 100%;
-  justify-content: center;
+  justify-content: space-between;
 }
 
 .show-img {
-  width: 25%;
+  width: 210px;
+  height: 295px;
+  margin: 20px;
+  padding: 10px;
 }
 
 .show-summary {
-  width: 50%;
+  width: 60%;
+  margin: 20px;
+  padding: 10px;
 }
 
 .show-info {
-  width: 25%;
+  width: 15%;
+  padding: 10px;
+  margin: 20px;
 }
 
 @media (min-width: 576px) {

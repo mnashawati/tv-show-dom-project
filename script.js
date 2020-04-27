@@ -264,8 +264,9 @@ function createShowCard(show) {
   showCardContainerEl.appendChild(showNameEl);
   showNameEl.className = "show-name-container";
 
-  const showNameLink = document.createElement("a");
+  const showNameLink = document.createElement("h3");
   showNameEl.appendChild(showNameLink);
+  showNameLink.className = "show-name-link";
   showNameLink.textContent = show.name;
   showNameLink.addEventListener("click", () => {
     selectShowEl.value = showNameLink.innerText;
@@ -284,9 +285,8 @@ function createShowCard(show) {
   const showSummaryEl = document.createElement("p");
   showCardBodyEl.appendChild(showSummaryEl);
   showSummaryEl.className = "show-summary";
-  showSummaryEl.textContent = show.summary
-    .replace("<b>", "")
-    .replace("</b>", "");
+  showSummaryEl.innerHTML = show.summary;
+  // .replace("<b>", "").replace("</b>", "");
 
   const showInfoEl = document.createElement("div");
   showCardBodyEl.appendChild(showInfoEl);
