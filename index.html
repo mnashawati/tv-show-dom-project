@@ -5,24 +5,22 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>TV Show Project | Mo (mnashawati)</title>
-  <link href="style.css" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="grid.css">
   <link rel="icon" href="/favicon.ico" type="image/x-icon" />
-
 </head>
 
 <body>
   <header>
     <select name="" id="select-show" class="select-show"></select>
-
     <select name="" id="select-episode" class="select-episode"></select>
-
-    <input type="text" id="search" class="search" onkeyup="" placeholder="Search for.." />
-
+    <input type="search" id="search" class="search" onkeyup="" placeholder="Search for.." />
     <p class="display">Displaying: </p>
-
     <p class="data-origin">Data source: <a href="https://www.tvmaze.com/" target=”_blank”>TVMAZE</a></p>
   </header>
+
   <div id="root" class="container">
+    <div id="row" class="row"></div>
   </div>
 
   <!-- Loads a provided function called getAllEpisodes() which returns all episodes -->

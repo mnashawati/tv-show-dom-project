@@ -1,5 +1,6 @@
 const allShows = getAllShows();
 const rootElem = document.getElementById("root");
+const rowEl = document.getElementById("row");
 const selectShowEl = document.getElementById("select-show");
 const selectEpisodeEl = document.getElementById("select-episode");
 const searchElm = document.getElementById("search");
@@ -26,7 +27,7 @@ function setup() {
 }
 
 function makePageForEpisodes(episodes) {
-  emptyRootElement();
+  emptyContainerElement();
   episodes.forEach((episode) => {
     createEpisodeCode(episode);
     createEpisodeCard(episode);
@@ -43,12 +44,18 @@ function createEpisodeCode(episode) {
 function createEpisodeCard(episode) {
   // Create episode container div
   const episodeContainerEl = document.createElement("div");
-  rootElem.appendChild(episodeContainerEl);
-  episodeContainerEl.className = "episode-container";
+  rowEl.appendChild(episodeContainerEl);
+  episodeContainerEl.className =
+    "episode-container sm-col-10 md-col-6 lg-col-4 xl-col-3";
+
+  // Create episode card's container div
+  const cardBodyEl = document.createElement("div");
+  episodeContainerEl.appendChild(cardBodyEl);
+  cardBodyEl.className = "card-body";
 
   // Create episode title container div
   const titleContainerEl = document.createElement("div");
-  episodeContainerEl.appendChild(titleContainerEl);
+  cardBodyEl.appendChild(titleContainerEl);
   titleContainerEl.className = "title-container";
 
   // Create episode code element (SxxExx) format
@@ -65,14 +72,14 @@ function createEpisodeCard(episode) {
 
   // Create episode image element
   const imgEl = document.createElement("img");
-  episodeContainerEl.appendChild(imgEl);
+  cardBodyEl.appendChild(imgEl);
   imgEl.className = "episode-image";
   imgEl.src =
     episode.image !== null ? episode.image.medium.replace("http", "https") : "";
 
   // Create episode summary element
   const summaryEl = document.createElement("p");
-  episodeContainerEl.appendChild(summaryEl);
+  cardBodyEl.appendChild(summaryEl);
   summaryEl.className = "summary";
   summaryEl.innerHTML =
     episode.summary !== null ? episode.summary : "No Summary Available";
@@ -86,8 +93,8 @@ function displayNumber(array1, array2, type) {
   ).textContent = `Displaying:${array1.length}/${array2.length} ${type}`;
 }
 
-function emptyRootElement() {
-  document.getElementById("root").innerHTML = "";
+function emptyContainerElement() {
+  document.getElementById("row").innerHTML = "";
 }
 
 // Searching
@@ -97,7 +104,7 @@ searchElm.addEventListener("input", () => {
 });
 
 function displayMatchingSearchResults(searchInput) {
-  emptyRootElement();
+  emptyContainerElement();
   let filteredSearch;
 
   if (isDisplayingEpisodes) {
@@ -169,7 +176,7 @@ selectEpisodeEl.addEventListener("change", () => {
 });
 
 function moveToEpisode(episodes) {
-  emptyRootElement();
+  emptyContainerElement();
   const selectedOptionID =
     selectEpisodeEl.options[selectEpisodeEl.selectedIndex].id;
 
@@ -211,7 +218,7 @@ selectShowEl.addEventListener("change", () => {
 });
 
 function moveToShow(shows) {
-  emptyRootElement();
+  emptyContainerElement();
   document.getElementById("select-episode").innerHTML = "";
 
   const selectedShowID = selectShowEl.options[selectShowEl.selectedIndex].id;
@@ -253,7 +260,7 @@ function createShowCard(show) {
   const separatedGenres = separateGenres(show.genres);
 
   const showCardContainerEl = document.createElement("div");
-  rootElem.appendChild(showCardContainerEl);
+  rowEl.appendChild(showCardContainerEl);
   showCardContainerEl.className = "show-card-container";
 
   const showNameEl = document.createElement("div");
@@ -309,7 +316,7 @@ function createShowCard(show) {
 }
 
 function displayAllShows(shows) {
-  emptyRootElement();
+  emptyContainerElement();
   shows.forEach((show) => {
     createShowCard(show);
   });

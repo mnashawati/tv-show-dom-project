@@ -6,15 +6,18 @@ header {
   background-color: silver;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
-  align-items: baseline;
+  justify-content: space-around;
+  align-items: center;
   width: 100%;
+  margin-bottom: 20px;
 }
 
 .select-show,
 .select-episode {
   width: 25%;
   /* min-height: 200px; */
+  text-align: center;
+  font-weight: bold;
 }
 
 .show-option,
@@ -38,34 +41,29 @@ header {
 }
 
 .container {
-  max-width: 90%;
-  margin: 20px auto;
-  display: flex;
-  flex-wrap: wrap;
-  /* justify-content: space-evenly; */
-  justify-content: center;
 }
 
 .episode-container {
-  /* background-color: #636868; */
-  background-color: silver;
+}
+
+.card-body {
+  background-color: black;
   text-align: center;
+  /* overflow: auto; */
   align-items: center;
-  min-height: 450px;
-  /* overflow: scroll-hidden; */
-  margin-top: 10px;
-  margin-bottom: 10px;
+  min-height: 500px;
+  margin: 20px 5px;
   padding: 10px;
-  border: 1px solid black;
-  border-radius: 7px;
+  border: 1px solid white;
+  border-radius: 5px;
 }
 
 .title-container {
-  background-color: #272d33;
-  color: #d4c493;
-  border: 1px hidden;
-  border-radius: 5px 5px 0 0;
-  height: 50px;
+  background-color: yellow;
+  color: black;
+  border: 1px solid white;
+  border-radius: 3px 3px 0 0;
+  height: 60px;
   margin: -10px;
   padding: 10px;
   display: flex;
@@ -74,15 +72,16 @@ header {
 }
 
 .season-episode-num {
-  border: 1px solid gray;
-  background-color: #272d33;
-  border-radius: 2px;
-  width: 50%;
+  border: 1px solid white;
+  background-color: black;
+  color: yellow;
+  border-radius: 3px 3px 0 0;
+  width: 30%;
   /* height: 50px; */
-  font-weight: bolder;
-  align-self: center;
-  margin: 0;
-  margin-top: -20px;
+  /* font-weight: bolder; */
+  align-self: stretch;
+  /* margin: 0; */
+  margin: -20px 0 0 0;
   padding: 5px;
 }
 
@@ -100,6 +99,7 @@ img {
 }
 
 .summary {
+  color: white;
   /* padding: 0 16px; */
   text-align: justify;
 }
@@ -149,7 +149,7 @@ img {
   margin: 20px;
 }
 
-@media (min-width: 576px) {
+/* @media (min-width: 576px) {
   .episode-container {
     width: 80%;
   }
@@ -171,4 +171,4 @@ img {
   .episode-container {
     width: 22.5%;
   }
-}
+} */
