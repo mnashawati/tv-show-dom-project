@@ -146,38 +146,20 @@ function filterSearchedInShows(shows, searchInput) {
 //   searchTerm.style.backgroundColor = "red";
 // }
 
-// Adding shows to drop down menu
-function addAllShowsToSelectionMenu(shows) {
-  const allShowsOption = document.createElement("option");
-  selectShowEl.appendChild(allShowsOption);
-  allShowsOption.textContent = "=== All Shows ===";
-  allShowsOption.className = "show-option";
-
-  shows
-    .sort((showA, showB) =>
-      showA.name.toUpperCase() > showB.name.toUpperCase() ? 1 : -1
-    )
-    .forEach((show) => {
-      const showOption = document.createElement("option");
-      selectShowEl.appendChild(showOption);
-      showOption.textContent = show.name;
-      showOption.className = "show-option";
-      // showOption.value = show.id;
-    });
-}
-
 // Adding show episodes to drop down menu
 function addAllEpisodesToSelectionMenu(episodes) {
   const allEpisodesOption = document.createElement("option");
   selectEpisodeEl.appendChild(allEpisodesOption);
-  allEpisodesOption.textContent = "=== All Episodes ===";
+  allEpisodesOption.textContent = "*** ALL EPISODES ***";
   allEpisodesOption.className = "episode-option";
+  allEpisodesOption.id = "ALL EPISODES";
 
   episodes.forEach((episode) => {
     const episodeOption = document.createElement("option");
     selectEpisodeEl.appendChild(episodeOption);
     episodeOption.textContent = `${episode.se} - ${episode.name}`;
     episodeOption.className = "episode-option";
+    episodeOption.id = episode.id;
   });
 }
 
@@ -188,43 +170,57 @@ selectEpisodeEl.addEventListener("change", () => {
 
 function moveToEpisode(episodes) {
   emptyRootElement();
-  const selectedEpisode = selectEpisodeEl.value;
+  const selectedOptionID =
+    selectEpisodeEl.options[selectEpisodeEl.selectedIndex].id;
 
-  if (selectedEpisode === "=== All Episodes ===") {
+  if (selectedOptionID === "ALL EPISODES") {
     makePageForEpisodes(episodes);
   } else {
-    const selectedEp = episodes.filter((episode) =>
-      selectedEpisode.includes(episode.se)
+    const selectedEp = episodes.filter(
+      (episode) => String(episode.id) === selectedOptionID
     );
     makePageForEpisodes(selectedEp);
     displayNumber(selectedEp, episodes, "Episodes");
   }
 }
 
-// const showNameBtn = document.querySelectorAll("show-name");
+// Adding shows to drop down menu
+function addAllShowsToSelectionMenu(shows) {
+  const allShowsOption = document.createElement("option");
+  selectShowEl.appendChild(allShowsOption);
+  allShowsOption.textContent = "*** ALL SHOWS ***";
+  allShowsOption.className = "show-option";
+  allShowsOption.id = "ALL SHOWS";
 
-// showNameBtn.forEach((btn) =>
-//   btn.addEventListener("click", () => {
-//     moveToShow(allShows, btn.innerText);
-//   })
-// );
+  shows
+    .sort((showA, showB) =>
+      showA.name.toUpperCase() > showB.name.toUpperCase() ? 1 : -1
+    )
+    .forEach((show) => {
+      const showOption = document.createElement("option");
+      selectShowEl.appendChild(showOption);
+      showOption.textContent = show.name;
+      showOption.className = "show-option";
+      showOption.id = show.id;
+    });
+}
 
 // Selecting shows
 selectShowEl.addEventListener("change", () => {
-  moveToShow(allShows, selectShowEl.value);
+  moveToShow(allShows);
 });
 
-function moveToShow(shows, value) {
+function moveToShow(shows) {
   emptyRootElement();
   document.getElementById("select-episode").innerHTML = "";
 
-  const selectedShow = value;
+  const selectedShowID = selectShowEl.options[selectShowEl.selectedIndex].id;
 
-  if (selectedShow === "=== All Shows ===") {
+  if (selectedShowID === "ALL SHOWS") {
     displayAllShows(allShows);
     hideEpisodeSelectionMenu();
   } else {
-    currentShow = shows.find((show) => show.name === selectedShow);
+    currentShow = shows.find((show) => String(show.id) === selectedShowID);
     getShowEpisodes(currentShow.id);
     showEpisodeSelectionMenu();
   }
@@ -286,7 +282,6 @@ function createShowCard(show) {
   showCardBodyEl.appendChild(showSummaryEl);
   showSummaryEl.className = "show-summary";
   showSummaryEl.innerHTML = show.summary;
-  // .replace("<b>", "").replace("</b>", "");
 
   const showInfoEl = document.createElement("div");
   showCardBodyEl.appendChild(showInfoEl);
