@@ -41,16 +41,20 @@ function makeOneBigCurrentShowCard(show) {
   currentShowCardEl.id = "current-show-card";
   currentShowCardEl.className = "current-show-card col-12";
   currentShowCardEl.innerHTML = `
-    <img class="current-show-card-img" src="${show.image.medium}" />
-    <div class="show-card-info">
-      <h2 class="show-card-name">${show.name}</h2>
+    <div class="current-show-card-img-container"><img class="current-show-card-img" src="${
+      show.image.medium
+    }" /></div>
+    <div class="show-card-info sm-col-12 md-col-8 lg-col-10">
+      <div class="current-show-card-name-rating-container">
+      <h2 class="show-card-name">${show.name}<i class="fas fa-star">${
+    show.rating.average
+  }</i></h2>
+       
+      </div>
       <div class="show-card-small-info">
         <li><strong>Genres: </strong>${separateGenres(show.genres)}</li>
         <li><strong>Status: </strong>${show.status}</li>
         <li><strong>Runtime: </strong>${show.runtime}</li>
-        <li><strong>Rating: </strong><i class="fas fa-star">${
-          show.rating.average
-        }</i> </li>
       </div>
       <p id="show-summary" class="show-summary">${show.summary.replace(
         /<\/?[^>]+(>|$)/g,

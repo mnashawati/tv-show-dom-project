@@ -83,23 +83,14 @@ header {
 }
 
 .season-episode-num {
-  /* border: 1px solid white; */
   background-color: black;
   color: yellow;
-  /* border-radius: 3px 3px 0 0; */
-  /* width: 6%; */
-  /* height: 50px; */
-  /* font-weight: bolder; */
-  /* align-self: stretch; */
-  margin: 0;
-  /* padding: 5px; */
-  /* margin: -22px 0 0 -22px; */
   /* position: sticky; */
-  /* writing-mode: vertical-rl;
-  text-orientation: upright; */
-  /* font-size: 12px; */
+  margin: 0;
   padding: 5px;
   align-self: flex-start;
+  /* writing-mode: vertical-rl;
+  text-orientation: upright; */
 }
 
 .name {
@@ -166,10 +157,16 @@ header {
 .show-card-name,
 .show-card-small-info,
 .show-summary {
-  /* width: 60%; */
-  /* margin: 0 10px; */
-  margin: 0;
+  margin: 0 auto;
   padding: 10px;
+}
+
+/* .show-card-name {
+  padding: 10px auto;
+} */
+
+.current-show-card-name-rating-container {
+  padding: 10px auto;
 }
 
 .show-info {
@@ -196,12 +193,18 @@ header {
 .current-show-card {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   justify-content: flex-start;
   color: white;
   background-color: dimgray;
 }
+
+.current-show-card-img-container {
+  margin: auto;
+}
+
 .show-card-info {
-  margin: 20px 0;
+  margin: 20px;
 }
 
 .show-card-small-info {
