@@ -41,17 +41,16 @@ function makeOneBigCurrentShowCard(show) {
   currentShowCardEl.id = "current-show-card";
   currentShowCardEl.className = "current-show-card";
   currentShowCardEl.innerHTML = `
-    <div class="current-show-card-img-container"><img class="current-show-card-img" src="${show.image.medium.replace(
-      "http",
-      "https"
-    )}" /></div>
+    <div class="current-show-card-img-container">
+      <img class="current-show-card-img" src="${show.image.medium.replace(
+        "http",
+        "https"
+      )}" /></div>
     <div class="show-card-info sm-col-12 md-col-7 lg-col-8 xl-col-9">
       <div class="current-show-card-name-rating-container">
-      <h2 class="show-card-name">${show.name} &nbsp;<i class="fas fa-star">${
-    show.rating.average
-  }</i></h2> 
-      
-       
+      <h2 class="show-card-name">${show.name} &nbsp;
+        <i class="fas fa-star">${show.rating.average}</i>
+      </h2> 
       </div>
       <div class="show-card-small-info">
         <li><strong>Genres: </strong>${separateGenres(show.genres)}</li>
@@ -305,7 +304,7 @@ function createShowCard(show) {
   const showImgEl = document.createElement("img");
   showCardBodyEl.appendChild(showImgEl);
   showImgEl.className = "show-img";
-  showImgEl.src = show.image.medium;
+  showImgEl.src = show.image.medium.replace("http", "https");
 
   // const showNameEl = document.createElement("div");
   // showCardBodyEl.appendChild(showNameEl);
