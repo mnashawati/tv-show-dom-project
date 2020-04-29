@@ -1,5 +1,5 @@
 body {
-  background-color: black;
+  background-color: rgba(0, 0, 0);
 }
 
 header {
@@ -57,7 +57,7 @@ header {
 }
 
 .card-body {
-  background-color: #191514;
+  background-color: rgba(0, 0, 0, 0.6);
   text-align: center;
   overflow: auto;
   align-items: center;
@@ -161,28 +161,25 @@ header {
   padding: 10px;
 }
 
-/* .show-card-name {
-  padding: 10px auto;
-} */
-
 .current-show-card-name-rating-container {
   padding: 10px auto;
+}
+.show-card-name {
+  padding: 10px auto 0 auto;
 }
 
 .show-info {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  /* width: 15%; */
   padding: 10px 20px;
-  /* margin: 20px; */
 }
 .show-status,
 .show-rating,
 .show-runtime {
+  margin: 0;
   padding: 0;
   color: gray;
-  margin: 0;
 }
 
 .fas,
@@ -196,7 +193,8 @@ header {
   flex-wrap: wrap;
   justify-content: flex-start;
   color: white;
-  background-color: dimgray;
+  background: rgb(200, 54, 54); /* The Fallback */
+  background: rgba(105, 105, 105, 0.5);
 }
 
 .current-show-card-img-container {
@@ -204,7 +202,7 @@ header {
 }
 
 .show-card-info {
-  margin: 20px;
+  margin: 20px 0;
 }
 
 .show-card-small-info {

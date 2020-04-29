@@ -39,16 +39,17 @@ function makeOneBigCurrentShowCard(show) {
   currentShowCardEl = document.createElement("div");
   rootElem.insertBefore(currentShowCardEl, rootElem.firstChild);
   currentShowCardEl.id = "current-show-card";
-  currentShowCardEl.className = "current-show-card col-12";
+  currentShowCardEl.className = "current-show-card";
   currentShowCardEl.innerHTML = `
     <div class="current-show-card-img-container"><img class="current-show-card-img" src="${
       show.image.medium
     }" /></div>
-    <div class="show-card-info sm-col-12 md-col-8 lg-col-10">
+    <div class="show-card-info sm-col-12 md-col-7 lg-col-8 xl-col-9">
       <div class="current-show-card-name-rating-container">
-      <h2 class="show-card-name">${show.name}<i class="fas fa-star">${
+      <h2 class="show-card-name">${show.name} &nbsp;<i class="fas fa-star">${
     show.rating.average
-  }</i></h2>
+  }</i></h2> 
+      
        
       </div>
       <div class="show-card-small-info">
@@ -283,9 +284,9 @@ function getShowEpisodes(showID) {
 function separateGenres(genres) {
   let allGenres = "";
   genres.forEach((genre) =>
-    genre === genres[0]
+    genre === genres[genres.length - 1]
       ? (allGenres += `${genre}`)
-      : (allGenres += ` | ${genre}`)
+      : (allGenres += `${genre} / `)
   );
   return allGenres;
 }
