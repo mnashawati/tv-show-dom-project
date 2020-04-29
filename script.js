@@ -154,7 +154,7 @@ function displayMatchingSearchResults(searchInput) {
 function filterSearchedInEpisodes(episodes, searchInput) {
   const filteredEpisodes = episodes.filter(
     (episode) =>
-      episode.se.toUpperCase().includes(searchInput.toUpperCase()) ||
+      episode.code.toUpperCase().includes(searchInput.toUpperCase()) ||
       episode.name.toUpperCase().includes(searchInput.toUpperCase()) ||
       (episode.summary !== null &&
         episode.summary.toUpperCase().includes(searchInput.toUpperCase()))
@@ -189,7 +189,7 @@ function addAllEpisodesToSelectionMenu(episodes) {
   episodes.forEach((episode) => {
     const episodeOption = document.createElement("option");
     selectEpisodeEl.appendChild(episodeOption);
-    episodeOption.textContent = `${episode.se} - ${episode.name}`;
+    episodeOption.textContent = `${episode.code} - ${episode.name}`;
     episodeOption.className = "episode-option";
     episodeOption.id = episode.id;
   });
