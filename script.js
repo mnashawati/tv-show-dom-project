@@ -41,9 +41,10 @@ function makeOneBigCurrentShowCard(show) {
   currentShowCardEl.id = "current-show-card";
   currentShowCardEl.className = "current-show-card";
   currentShowCardEl.innerHTML = `
-    <div class="current-show-card-img-container"><img class="current-show-card-img" src="${
-      show.image.medium
-    }" /></div>
+    <div class="current-show-card-img-container"><img class="current-show-card-img" src="${show.image.medium.replace(
+      "http",
+      "https"
+    )}" /></div>
     <div class="show-card-info sm-col-12 md-col-7 lg-col-8 xl-col-9">
       <div class="current-show-card-name-rating-container">
       <h2 class="show-card-name">${show.name} &nbsp;<i class="fas fa-star">${
