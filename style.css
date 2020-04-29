@@ -48,20 +48,16 @@ header {
 .data-origin {
   width: 50%;
   margin: 10px;
-
   /* width: 15%; */
   /* justify-items: end;
   align-self: flex-end; */
-}
-
-.container {
 }
 
 .episode-container {
 }
 
 .card-body {
-  background-color: black;
+  background-color: #191514;
   text-align: center;
   overflow: auto;
   align-items: center;
@@ -69,17 +65,17 @@ header {
   margin: 20px 5px;
   padding: 10px;
   border: 1px solid white;
-  border-radius: 5px;
+  border-radius: 0 5px 5px 5px;
 }
 
 .title-container {
   background-color: yellow;
-  color: black;
-  border: 1px solid white;
-  border-radius: 3px 3px 0 0;
-  height: 60px;
-  margin: 0;
-  padding: 10px;
+  /* color: black; */
+  /* border: 1px solid white; */
+  /* border-radius: 3px 3px 0 0; */
+  /* height: 60px; */
+  margin: -10px;
+  /* padding: 10px; */
   display: flex;
   flex-direction: column;
   position: sticky;
@@ -87,24 +83,33 @@ header {
 }
 
 .season-episode-num {
-  border: 1px solid white;
+  /* border: 1px solid white; */
   background-color: black;
   color: yellow;
-  border-radius: 3px 3px 0 0;
-  width: 30%;
+  /* border-radius: 3px 3px 0 0; */
+  /* width: 6%; */
   /* height: 50px; */
   /* font-weight: bolder; */
-  align-self: stretch;
-  /* margin: 0; */
+  /* align-self: stretch; */
+  margin: 0;
+  /* padding: 5px; */
+  /* margin: -22px 0 0 -22px; */
+  /* position: sticky; */
+  /* writing-mode: vertical-rl;
+  text-orientation: upright; */
+  /* font-size: 12px; */
   padding: 5px;
-  margin: -22px 0 0 -22px;
-  position: sticky;
+  align-self: flex-start;
 }
 
 .name {
-  margin: auto 0;
-  -webkit-text-stroke: thin;
+  align-self: center;
+
+  margin: auto;
+  margin-bottom: 10px;
+  /* -webkit-text-stroke: thin; */
   /* vertical-align: middle; */
+  padding: 10px;
 }
 
 .episode-img {
