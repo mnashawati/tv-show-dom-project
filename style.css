@@ -12,9 +12,9 @@ header {
   margin-bottom: 20px;
 }
 
-.select-show,
-.select-episode {
-  min-height: 200px;
+.selection-dropdown-menu {
+  width: 100%;
+  height: 40px;
   margin: 10px;
   /* width: 100%; */
   text-align: center;
@@ -25,12 +25,12 @@ header {
 .show-option,
 .episode-option {
   /* width: 100%; */
-  font-size: 20px;
+  font-size: 18px;
 }
 
 .search {
-  /* width: 15%; */
-  /* width: 100%; */
+  width: 100%;
+  height: 40px;
   margin: 10px;
   font-size: 18px;
 }
@@ -81,6 +81,7 @@ header {
   padding: 10px;
   display: flex;
   flex-direction: column;
+  position: sticky;
   /* justify-content: center; */
 }
 
@@ -120,35 +121,37 @@ img {
 
 .show-card-container {
   color: white;
-  border: 1px solid white;
-  margin: 10px;
+  /* border: 1px solid white;
+  margin: 10px; */
 }
 
 .show-name-link {
   padding: 20px;
-  color: black;
-  text-align: center;
+  color: white;
+  text-align: left;
   margin: 0;
-  background-color: yellow;
-}
-
-.show-name-link:hover {
-  cursor: pointer;
+  padding: 0 20px;
+  /* background-color:; */
 }
 
 .show-card-body {
   display: flex;
-  /* flex-wrap: wrap; */
-  margin: 20px;
-  width: 100%;
-  justify-content: space-between;
+  flex-direction: column;
+  justify-content: space-around;
 }
 
 .show-img {
   width: 210px;
   height: 295px;
   margin: 20px;
-  padding: 10px;
+  padding: 0;
+}
+
+.show-img:hover {
+  border: 2px solid;
+  border-radius: 5px;
+  cursor: pointer;
+  opacity: 0.5;
 }
 
 .show-summary {
@@ -158,9 +161,24 @@ img {
 }
 
 .show-info {
-  width: 15%;
-  padding: 10px;
-  margin: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  /* width: 15%; */
+  padding: 10px 20px;
+  /* margin: 20px; */
+}
+.show-status,
+.show-rating,
+.show-runtime {
+  padding: 0;
+  color: gray;
+  margin: 0;
+}
+
+.fas,
+.fa-star {
+  color: yellow;
 }
 
 /* @media (min-width: 576px) {

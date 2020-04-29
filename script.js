@@ -48,6 +48,12 @@ function createEpisodeCard(episode) {
   episodeContainerEl.className =
     "episode-container sm-col-10 md-col-6 lg-col-4 xl-col-3";
 
+  // Create episode code element (SxxExx) format
+  const seasonAndEpisodeNumEl = document.createElement("p");
+  episodeContainerEl.appendChild(seasonAndEpisodeNumEl);
+  seasonAndEpisodeNumEl.className = "season-episode-num";
+  seasonAndEpisodeNumEl.textContent = episode.se;
+
   // Create episode card's container div
   const cardBodyEl = document.createElement("div");
   episodeContainerEl.appendChild(cardBodyEl);
@@ -57,12 +63,6 @@ function createEpisodeCard(episode) {
   const titleContainerEl = document.createElement("div");
   cardBodyEl.appendChild(titleContainerEl);
   titleContainerEl.className = "title-container";
-
-  // Create episode code element (SxxExx) format
-  const seasonAndEpisodeNumEl = document.createElement("p");
-  titleContainerEl.appendChild(seasonAndEpisodeNumEl);
-  seasonAndEpisodeNumEl.className = "season-episode-num";
-  seasonAndEpisodeNumEl.textContent = episode.se;
 
   // Create episode name element
   const nameEl = document.createElement("h4");
@@ -257,24 +257,11 @@ function separateGenres(genres) {
 }
 
 function createShowCard(show) {
-  const separatedGenres = separateGenres(show.genres);
+  // const separatedGenres = separateGenres(show.genres);
 
   const showCardContainerEl = document.createElement("div");
   rowEl.appendChild(showCardContainerEl);
   showCardContainerEl.className = "show-card-container";
-
-  const showNameEl = document.createElement("div");
-  showCardContainerEl.appendChild(showNameEl);
-  showNameEl.className = "show-name-container";
-
-  const showNameLink = document.createElement("h3");
-  showNameEl.appendChild(showNameLink);
-  showNameLink.className = "show-name-link";
-  showNameLink.textContent = show.name;
-  showNameLink.addEventListener("click", () => {
-    selectShowEl.value = showNameLink.innerText;
-    moveToShow(allShows, showNameLink.innerText);
-  });
 
   const showCardBodyEl = document.createElement("div");
   showCardContainerEl.appendChild(showCardBodyEl);
@@ -285,34 +272,39 @@ function createShowCard(show) {
   showImgEl.className = "show-img";
   showImgEl.src = show.image.medium;
 
-  const showSummaryEl = document.createElement("p");
-  showCardBodyEl.appendChild(showSummaryEl);
-  showSummaryEl.className = "show-summary";
-  showSummaryEl.innerHTML = show.summary;
+  // const showNameEl = document.createElement("div");
+  // showCardBodyEl.appendChild(showNameEl);
+  // showNameEl.className = "show-name-container";
+  // showNameEl.textContent = show.name;
+
+  const showNameLink = document.createElement("h3");
+  showCardBodyEl.appendChild(showNameLink);
+  showNameLink.className = "show-name-link";
+  showNameLink.textContent = show.name;
+
+  showImgEl.addEventListener("click", () => {
+    selectShowEl.value = showNameLink.innerText;
+    moveToShow(allShows);
+  });
 
   const showInfoEl = document.createElement("div");
   showCardBodyEl.appendChild(showInfoEl);
   showInfoEl.className = "show-info";
 
-  const showRatingEl = document.createElement("p");
-  showInfoEl.appendChild(showRatingEl);
-  showRatingEl.className = "show-rating";
-  showRatingEl.innerHTML = `Rating: ${String(show.rating.average)}`;
-
-  const showGenresEl = document.createElement("p");
-  showInfoEl.appendChild(showGenresEl);
-  showGenresEl.className = "show-genres";
-  showGenresEl.textContent = `Genres: ${separatedGenres}`;
-
   const showStatusEl = document.createElement("p");
   showInfoEl.appendChild(showStatusEl);
   showStatusEl.className = "show-status";
-  showStatusEl.textContent = `Status: ${show.status}`;
+  showStatusEl.innerText = `${show.status}`;
+
+  const showRatingEl = document.createElement("i");
+  showInfoEl.appendChild(showRatingEl);
+  showRatingEl.className = "fas fa-star";
+  showRatingEl.innerText = `${String(show.rating.average)}`;
 
   const showRuntimeEl = document.createElement("p");
   showInfoEl.appendChild(showRuntimeEl);
   showRuntimeEl.className = "show-runtime";
-  showRuntimeEl.textContent = `Runtime: ${show.runtime}`;
+  showRuntimeEl.innerText = `Runtime: ${show.runtime}`;
 }
 
 function displayAllShows(shows) {
@@ -355,4 +347,63 @@ window.onload = setup;
 //       </div>
 //     </div>
 //   `;
+// }
+
+// function createShowCard(show) {
+//   const separatedGenres = separateGenres(show.genres);
+
+//   const showCardContainerEl = document.createElement("div");
+//   rowEl.appendChild(showCardContainerEl);
+//   showCardContainerEl.className = "show-card-container";
+
+//   const showNameEl = document.createElement("div");
+//   showCardContainerEl.appendChild(showNameEl);
+//   showNameEl.className = "show-name-container";
+
+//   const showNameLink = document.createElement("h3");
+//   showNameEl.appendChild(showNameLink);
+//   showNameLink.className = "show-name-link";
+//   showNameLink.textContent = show.name;
+//   showNameLink.addEventListener("click", () => {
+//     selectShowEl.value = showNameLink.innerText;
+//     moveToShow(allShows, showNameLink.innerText);
+//   });
+
+//   const showCardBodyEl = document.createElement("div");
+//   showCardContainerEl.appendChild(showCardBodyEl);
+//   showCardBodyEl.className = "show-card-body";
+
+//   const showImgEl = document.createElement("img");
+//   showCardBodyEl.appendChild(showImgEl);
+//   showImgEl.className = "show-img";
+//   showImgEl.src = show.image.medium;
+
+//   const showSummaryEl = document.createElement("p");
+//   showCardBodyEl.appendChild(showSummaryEl);
+//   showSummaryEl.className = "show-summary";
+//   showSummaryEl.innerHTML = show.summary;
+
+//   const showInfoEl = document.createElement("div");
+//   showCardBodyEl.appendChild(showInfoEl);
+//   showInfoEl.className = "show-info";
+
+//   const showRatingEl = document.createElement("p");
+//   showInfoEl.appendChild(showRatingEl);
+//   showRatingEl.className = "show-rating";
+//   showRatingEl.innerHTML = `Rating: ${String(show.rating.average)}`;
+
+//   const showGenresEl = document.createElement("p");
+//   showInfoEl.appendChild(showGenresEl);
+//   showGenresEl.className = "show-genres";
+//   showGenresEl.textContent = `Genres: ${separatedGenres}`;
+
+//   const showStatusEl = document.createElement("p");
+//   showInfoEl.appendChild(showStatusEl);
+//   showStatusEl.className = "show-status";
+//   showStatusEl.textContent = `Status: ${show.status}`;
+
+//   const showRuntimeEl = document.createElement("p");
+//   showInfoEl.appendChild(showRuntimeEl);
+//   showRuntimeEl.className = "show-runtime";
+//   showRuntimeEl.textContent = `Runtime: ${show.runtime}`;
 // }
