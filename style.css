@@ -3,7 +3,9 @@ body {
 }
 
 header {
-  background-color: silver;
+  background-color: black;
+  color: white;
+  opacity: 0.8;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -37,7 +39,6 @@ header {
 
 .data-origin,
 .display {
-  color: black;
   margin: 10px;
   margin-top: 5px;
   font-size: 12px;
@@ -106,7 +107,7 @@ header {
   /* vertical-align: middle; */
 }
 
-img {
+.episode-img {
   width: 100%;
   margin-top: 20px;
   border: 1px hidden;
@@ -140,11 +141,14 @@ img {
   justify-content: space-around;
 }
 
-.show-img {
+.show-img,
+.current-show-card-img {
   width: 210px;
   height: 295px;
   margin: 20px;
   padding: 0;
+  border-radius: 5px;
+  box-shadow: black -2px;
 }
 
 .show-img:hover {
@@ -154,9 +158,12 @@ img {
   opacity: 0.5;
 }
 
+.show-card-name,
+.show-card-small-info,
 .show-summary {
-  width: 60%;
-  margin: 20px;
+  /* width: 60%; */
+  /* margin: 0 10px; */
+  margin: 0;
   padding: 10px;
 }
 
@@ -179,6 +186,41 @@ img {
 .fas,
 .fa-star {
   color: yellow;
+}
+
+.current-show-card {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  color: white;
+  background-color: dimgray;
+}
+.show-card-info {
+  margin: 20px 0;
+}
+
+.show-card-small-info {
+  display: flex;
+  /* flex-wrap: nowrap; */
+  justify-content: flex-start;
+  list-style-type: none;
+}
+
+.show-card-small-info li {
+  margin-right: 25px;
+}
+
+/* .show-card-small-info {
+  
+} */
+
+.genres {
+  list-style-type: symbols();
+}
+
+.current-show-card-img {
+  /* width: 250px;
+  height: 350px; */
 }
 
 /* @media (min-width: 576px) {

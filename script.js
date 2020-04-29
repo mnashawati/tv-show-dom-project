@@ -27,12 +27,38 @@ function setup() {
 }
 
 function makePageForEpisodes(episodes) {
-  emptyContainerElement();
+  emptyRootElem();
   episodes.forEach((episode) => {
     createEpisodeCode(episode);
     createEpisodeCard(episode);
   });
   displayNumber(episodes, episodes, "Episodes");
+}
+
+function makeOneBigCurrentShowCard(show) {
+  currentShowCardEl = document.createElement("div");
+  rootElem.insertBefore(currentShowCardEl, rootElem.firstChild);
+  currentShowCardEl.className = "current-show-card col-12";
+  currentShowCardEl.id = "current-show-card";
+  // currentShowCardEl.innerHTML = "";
+  currentShowCardEl.innerHTML = `
+    <img class="current-show-card-img" src="${show.image.medium}" />
+    <div class="show-card-info">
+      <h2 class="show-card-name">${show.name}</h2>
+      <div class="show-card-small-info">
+        <li><strong>Genres: </strong>${separateGenres(show.genres)}</li>
+        <li><strong>Status: </strong>${show.status}</li>
+        <li><strong>Runtime: </strong>${show.runtime}</li>
+        <li><strong>Rating: </strong><i class="fas fa-star">${
+          show.rating.average
+        }</i> </li>
+      </div>
+      <p id="show-summary" class="show-summary">${show.summary.replace(
+        /<\/?[^>]+(>|$)/g,
+        ""
+      )}</p>
+    </div>
+  `;
 }
 
 function createEpisodeCode(episode) {
@@ -73,7 +99,7 @@ function createEpisodeCard(episode) {
   // Create episode image element
   const imgEl = document.createElement("img");
   cardBodyEl.appendChild(imgEl);
-  imgEl.className = "episode-image";
+  imgEl.className = "episode-img";
   imgEl.src =
     episode.image !== null ? episode.image.medium.replace("http", "https") : "";
 
@@ -93,7 +119,7 @@ function displayNumber(array1, array2, type) {
   ).textContent = `Displaying:${array1.length}/${array2.length} ${type}`;
 }
 
-function emptyContainerElement() {
+function emptyRootElem() {
   document.getElementById("row").innerHTML = "";
 }
 
@@ -104,7 +130,7 @@ searchElm.addEventListener("input", () => {
 });
 
 function displayMatchingSearchResults(searchInput) {
-  emptyContainerElement();
+  emptyRootElem();
   let filteredSearch;
 
   if (isDisplayingEpisodes) {
@@ -176,7 +202,7 @@ selectEpisodeEl.addEventListener("change", () => {
 });
 
 function moveToEpisode(episodes) {
-  emptyContainerElement();
+  emptyRootElem();
   const selectedOptionID =
     selectEpisodeEl.options[selectEpisodeEl.selectedIndex].id;
 
@@ -218,7 +244,11 @@ selectShowEl.addEventListener("change", () => {
 });
 
 function moveToShow(shows) {
-  emptyContainerElement();
+  const currentShowCardEl = document.getElementById("current-show-card");
+  if (currentShowCardEl != null) {
+    currentShowCardEl.remove();
+  }
+  emptyRootElem();
   document.getElementById("select-episode").innerHTML = "";
 
   const selectedShowID = selectShowEl.options[selectShowEl.selectedIndex].id;
@@ -228,6 +258,7 @@ function moveToShow(shows) {
     hideEpisodeSelectionMenu();
   } else {
     currentShow = shows.find((show) => String(show.id) === selectedShowID);
+    makeOneBigCurrentShowCard(currentShow);
     getShowEpisodes(currentShow.id);
     showEpisodeSelectionMenu();
   }
@@ -258,7 +289,6 @@ function separateGenres(genres) {
 
 function createShowCard(show) {
   // const separatedGenres = separateGenres(show.genres);
-
   const showCardContainerEl = document.createElement("div");
   rowEl.appendChild(showCardContainerEl);
   showCardContainerEl.className = "show-card-container";
@@ -308,7 +338,7 @@ function createShowCard(show) {
 }
 
 function displayAllShows(shows) {
-  emptyContainerElement();
+  emptyRootElem();
   shows.forEach((show) => {
     createShowCard(show);
   });
