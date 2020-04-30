@@ -80,6 +80,7 @@ header {
   flex-direction: column;
   position: sticky;
   /* justify-content: center; */
+  height: 15vh;
 }
 
 .season-episode-num {
@@ -97,7 +98,7 @@ header {
   align-self: center;
 
   margin: auto;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
   /* -webkit-text-stroke: thin; */
   /* vertical-align: middle; */
   padding: 10px;
@@ -117,9 +118,9 @@ header {
 }
 
 .show-card-container {
-  color: white;
-  /* border: 1px solid white;
-  margin: 10px; */
+  /* color: white;
+  margin: 0;
+  margin-bottom: 10px; */
 }
 
 .show-name-link {
@@ -146,8 +147,12 @@ header {
   border-radius: 5px;
 }
 
+.show-img {
+  margin-bottom: 10px;
+}
+
 .show-img:hover {
-  border: 2px solid;
+  border: 2px solid white;
   border-radius: 5px;
   cursor: pointer;
   opacity: 0.5;
@@ -171,8 +176,11 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
+  width: 250px;
+  margin-bottom: 20px;
   padding: 10px 20px;
 }
+
 .show-status,
 .show-rating,
 .show-runtime {

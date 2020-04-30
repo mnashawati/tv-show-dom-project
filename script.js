@@ -35,36 +35,6 @@ function makePageForEpisodes(episodes) {
   displayNumber(episodes, episodes, "Episodes");
 }
 
-function makeOneBigCurrentShowCard(show) {
-  currentShowCardEl = document.createElement("div");
-  rootElem.insertBefore(currentShowCardEl, rootElem.firstChild);
-  currentShowCardEl.id = "current-show-card";
-  currentShowCardEl.className = "current-show-card";
-  currentShowCardEl.innerHTML = `
-    <div class="current-show-card-img-container">
-      <img class="current-show-card-img" src="${show.image.medium.replace(
-        "http",
-        "https"
-      )}" /></div>
-    <div class="show-card-info sm-col-12 md-col-7 lg-col-8 xl-col-9">
-      <div class="current-show-card-name-rating-container">
-      <h2 class="show-card-name">${show.name} &nbsp;
-        <i class="fas fa-star">${show.rating.average}</i>
-      </h2> 
-      </div>
-      <div class="show-card-small-info">
-        <li><strong>Genres: </strong>${separateGenres(show.genres)}</li>
-        <li><strong>Status: </strong>${show.status}</li>
-        <li><strong>Runtime: </strong>${show.runtime}</li>
-      </div>
-      <p id="show-summary" class="show-summary">${show.summary.replace(
-        /<\/?[^>]+(>|$)/g,
-        ""
-      )}</p>
-    </div>
-  `;
-}
-
 function createEpisodeCode(episode) {
   episode.code = `S${String(episode.season).padStart(2, 0)}E${String(
     episode.number
@@ -76,7 +46,7 @@ function createEpisodeCard(episode) {
   const episodeContainerEl = document.createElement("div");
   rowEl.appendChild(episodeContainerEl);
   episodeContainerEl.className =
-    "episode-container sm-col-10 md-col-6 lg-col-4 xl-col-3";
+    "episode-container col-10 sm-col-8 md-col-6 lg-col-4 xl-col-3";
 
   // Create episode card's container div
   const cardBodyEl = document.createElement("div");
@@ -295,7 +265,8 @@ function createShowCard(show) {
   // const separatedGenres = separateGenres(show.genres);
   const showCardContainerEl = document.createElement("div");
   rowEl.appendChild(showCardContainerEl);
-  showCardContainerEl.className = "show-card-container";
+  showCardContainerEl.className =
+    "show-card-container sm-col-6 md-col-5 lg-col-4 xl-col-3";
 
   const showCardBodyEl = document.createElement("div");
   showCardContainerEl.appendChild(showCardBodyEl);
@@ -347,6 +318,36 @@ function displayAllShows(shows) {
     createShowCard(show);
   });
   displayNumber(allShows, allShows, "Shows");
+}
+
+function makeOneBigCurrentShowCard(show) {
+  currentShowCardEl = document.createElement("div");
+  rootElem.insertBefore(currentShowCardEl, rootElem.firstChild);
+  currentShowCardEl.id = "current-show-card";
+  currentShowCardEl.className = "current-show-card";
+  currentShowCardEl.innerHTML = `
+    <div class="current-show-card-img-container">
+      <img class="current-show-card-img" src="${show.image.medium.replace(
+        "http",
+        "https"
+      )}" /></div>
+    <div class="show-card-info sm-col-12 md-col-7 lg-col-8 xl-col-9">
+      <div class="current-show-card-name-rating-container">
+      <h2 class="show-card-name">${show.name} &nbsp;
+        <i class="fas fa-star">${show.rating.average}</i>
+      </h2> 
+      </div>
+      <div class="show-card-small-info">
+        <li><strong>Genres: </strong>${separateGenres(show.genres)}</li>
+        <li><strong>Status: </strong>${show.status}</li>
+        <li><strong>Runtime: </strong>${show.runtime}</li>
+      </div>
+      <p id="show-summary" class="show-summary">${show.summary.replace(
+        /<\/?[^>]+(>|$)/g,
+        ""
+      )}</p>
+    </div>
+  `;
 }
 
 window.onload = setup;
