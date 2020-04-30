@@ -18,7 +18,6 @@ header {
   width: 100%;
   height: 40px;
   margin: 10px;
-  /* width: 100%; */
   text-align: center;
   font-weight: bold;
   font-size: 16px;
@@ -26,7 +25,6 @@ header {
 
 .show-option,
 .episode-option {
-  /* width: 100%; */
   font-size: 18px;
 }
 
@@ -42,15 +40,11 @@ header {
   margin: 10px;
   margin-top: 5px;
   font-size: 12px;
-  /* width: 15%; */
 }
 
 .data-origin {
   width: 50%;
   margin: 10px;
-  /* width: 15%; */
-  /* justify-items: end;
-  align-self: flex-end; */
 }
 
 .episode-container {
@@ -65,42 +59,41 @@ header {
   margin: 20px 5px;
   padding: 10px;
   border: 1px solid white;
-  border-radius: 0 5px 5px 5px;
+  border-radius: 5px;
 }
 
 .title-container {
-  background-color: yellow;
-  /* color: black; */
-  /* border: 1px solid white; */
-  /* border-radius: 3px 3px 0 0; */
-  /* height: 60px; */
+  position: sticky;
+  color: rgb(255, 255, 255);
+  height: 15vh;
   margin: -10px;
-  /* padding: 10px; */
   display: flex;
   flex-direction: column;
-  position: sticky;
-  /* justify-content: center; */
-  height: 15vh;
+  justify-content: center;
 }
 
 .season-episode-num {
-  background-color: black;
-  color: yellow;
-  /* position: sticky; */
+  color: black;
+  background-image: linear-gradient(
+    to bottom right,
+    rgb(243, 207, 2),
+    rgb(255, 238, 0),
+    rgb(207, 144, 7),
+    rgb(223, 208, 7)
+  );
   margin: 0;
-  padding: 5px;
-  align-self: flex-start;
-  /* writing-mode: vertical-rl;
-  text-orientation: upright; */
+  padding: 5px 10px;
+  font-weight: 700;
+  /* width: 10vw; */
+  /* height: 5vh; */
+  /* align-self: flex-start; */
+  /* writing-mode: vertical-rl; */
+  /* text-orientation: upright; */
 }
 
 .name {
   align-self: center;
-
   margin: auto;
-  margin-bottom: 20px;
-  /* -webkit-text-stroke: thin; */
-  /* vertical-align: middle; */
   padding: 10px;
 }
 
@@ -112,7 +105,7 @@ header {
 }
 
 .summary {
-  color: white;
+  color: rgba(255, 255, 255, 0.8);
   /* padding: 0 16px; */
   text-align: justify;
 }
@@ -191,7 +184,7 @@ header {
 
 .fas,
 .fa-star {
-  color: yellow;
+  color: rgb(243, 207, 2);
 }
 
 .current-show-card {
