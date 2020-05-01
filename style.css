@@ -72,6 +72,10 @@ header {
   justify-content: center;
 }
 
+.highlight {
+  background-color: yellow;
+}
+
 .season-episode-num {
   color: black;
   background-image: linear-gradient(

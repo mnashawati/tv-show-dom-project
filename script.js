@@ -105,6 +105,7 @@ searchElm.addEventListener("input", () => {
 
 function displayMatchingSearchResults(searchInput) {
   emptyRowElem();
+
   let filteredSearch;
 
   if (isDisplayingEpisodes) {
@@ -116,15 +117,11 @@ function displayMatchingSearchResults(searchInput) {
     displayAllShows(filteredSearch);
     displayNumber(filteredSearch, allShows, "Shows");
   }
-
+  highlight(searchElm.value);
   return filteredSearch;
-
-  // HIGHLIGHTING ATTEMPT:
-  // const searchTerm = searchElm.value;
-  // if (filteredEpisodes.includes(searchTerm)) {
-  //   searchTerm.style.color = "red";
-  // }
 }
+
+function highlight(text) {}
 
 function filterSearchedInEpisodes(episodes, searchInput) {
   const filteredEpisodes = episodes.filter(
@@ -148,10 +145,6 @@ function filterSearchedInShows(shows, searchInput) {
   );
   return filteredShows;
 }
-
-// function highlightSearchTerm(searchTerm) {
-//   searchTerm.style.backgroundColor = "red";
-// }
 
 // Adding show episodes to drop down menu
 function addAllEpisodesToSelectionMenu(episodes) {
@@ -382,63 +375,4 @@ window.onload = setup;
 //       </div>
 //     </div>
 //   `;
-// }
-
-// function createShowCard(show) {
-//   const separatedGenres = separateGenres(show.genres);
-
-//   const showCardContainerEl = document.createElement("div");
-//   rowEl.appendChild(showCardContainerEl);
-//   showCardContainerEl.className = "show-card-container";
-
-//   const showNameEl = document.createElement("div");
-//   showCardContainerEl.appendChild(showNameEl);
-//   showNameEl.className = "show-name-container";
-
-//   const showNameLink = document.createElement("h3");
-//   showNameEl.appendChild(showNameLink);
-//   showNameLink.className = "show-name-link";
-//   showNameLink.textContent = show.name;
-//   showNameLink.addEventListener("click", () => {
-//     selectShowEl.value = showNameLink.innerText;
-//     moveToShow(allShows, showNameLink.innerText);
-//   });
-
-//   const showCardBodyEl = document.createElement("div");
-//   showCardContainerEl.appendChild(showCardBodyEl);
-//   showCardBodyEl.className = "show-card-body";
-
-//   const showImgEl = document.createElement("img");
-//   showCardBodyEl.appendChild(showImgEl);
-//   showImgEl.className = "show-img";
-//   showImgEl.src = show.image.medium;
-
-//   const showSummaryEl = document.createElement("p");
-//   showCardBodyEl.appendChild(showSummaryEl);
-//   showSummaryEl.className = "show-summary";
-//   showSummaryEl.innerHTML = show.summary;
-
-//   const showInfoEl = document.createElement("div");
-//   showCardBodyEl.appendChild(showInfoEl);
-//   showInfoEl.className = "show-info";
-
-//   const showRatingEl = document.createElement("p");
-//   showInfoEl.appendChild(showRatingEl);
-//   showRatingEl.className = "show-rating";
-//   showRatingEl.innerHTML = `Rating: ${String(show.rating.average)}`;
-
-//   const showGenresEl = document.createElement("p");
-//   showInfoEl.appendChild(showGenresEl);
-//   showGenresEl.className = "show-genres";
-//   showGenresEl.textContent = `Genres: ${separatedGenres}`;
-
-//   const showStatusEl = document.createElement("p");
-//   showInfoEl.appendChild(showStatusEl);
-//   showStatusEl.className = "show-status";
-//   showStatusEl.textContent = `Status: ${show.status}`;
-
-//   const showRuntimeEl = document.createElement("p");
-//   showInfoEl.appendChild(showRuntimeEl);
-//   showRuntimeEl.className = "show-runtime";
-//   showRuntimeEl.textContent = `Runtime: ${show.runtime}`;
 // }
