@@ -61,13 +61,13 @@ function createEpisodeCard(episode) {
   // Create episode code element (SxxExx) format
   const episodeCodeEl = document.createElement("p");
   titleContainerEl.appendChild(episodeCodeEl);
-  episodeCodeEl.className = "season-episode-num";
+  episodeCodeEl.className = "episode-code";
   episodeCodeEl.textContent = episode.code;
 
   // Create episode name element
   const nameEl = document.createElement("h4");
   titleContainerEl.appendChild(nameEl);
-  nameEl.className = "name";
+  nameEl.className = "episode-name";
   nameEl.textContent = episode.name;
 
   // Create episode image element
@@ -80,7 +80,7 @@ function createEpisodeCard(episode) {
   // Create episode summary element
   const summaryEl = document.createElement("p");
   cardBodyEl.appendChild(summaryEl);
-  summaryEl.className = "summary";
+  summaryEl.className = "episode-summary";
   summaryEl.innerText =
     episode.summary !== null
       ? episode.summary.replace(/<\/?[^>]+(>|$)/g, "")
@@ -111,17 +111,33 @@ function displayMatchingSearchResults(searchInput) {
   if (isDisplayingEpisodes) {
     filteredSearch = filterSearchedInEpisodes(currentShowEpisodes, searchInput);
     makePageForEpisodes(filteredSearch);
+    highlight(searchInput, ".episode-code");
+    highlight(searchInput, ".episode-name");
+    highlight(searchInput, ".episode-summary");
     displayNumber(filteredSearch, currentShowEpisodes, "Episodes");
   } else {
     filteredSearch = filterSearchedInShows(allShows, searchInput);
     displayAllShows(filteredSearch);
+    highlight(searchInput, ".show-name-link");
+    highlight(searchInput, ".show-status");
+    highlight(searchInput, ".show-rating");
+    highlight(searchInput, ".show-runtime");
     displayNumber(filteredSearch, allShows, "Shows");
   }
-  highlight(searchElm.value);
+
   return filteredSearch;
 }
 
-function highlight(text) {}
+function highlight(text, targetClass) {
+  const targetEl = document.querySelectorAll(targetClass);
+  targetEl.forEach((string) => {
+    let regex = new RegExp(text, "gi");
+    string.innerHTML = string.innerHTML.replace(
+      regex,
+      `<span class="highlight">${text}</span>`
+    );
+  });
+}
 
 function filterSearchedInEpisodes(episodes, searchInput) {
   const filteredEpisodes = episodes.filter(
@@ -138,8 +154,11 @@ function filterSearchedInShows(shows, searchInput) {
   const filteredShows = shows.filter(
     (show) =>
       show.name.toUpperCase().includes(searchInput.toUpperCase()) ||
-      show.summary.toUpperCase().includes(searchInput.toUpperCase()) ||
-      separateGenres(show.genres)
+      // show.summary.toUpperCase().includes(searchInput.toUpperCase()) ||
+      // separateGenres(show.genres)
+      show.status.toUpperCase().includes(searchInput.toUpperCase()) ||
+      String(show.rating.average).includes(String(searchInput)) ||
+      `Runtime: ${show.runtime}`
         .toUpperCase()
         .includes(searchInput.toUpperCase())
   );
@@ -296,7 +315,7 @@ function createShowCard(show) {
 
   const showRatingEl = document.createElement("i");
   showInfoEl.appendChild(showRatingEl);
-  showRatingEl.className = "fas fa-star";
+  showRatingEl.className = "fas fa-star show-rating";
   showRatingEl.innerText = `${String(show.rating.average)}`;
 
   const showRuntimeEl = document.createElement("p");
