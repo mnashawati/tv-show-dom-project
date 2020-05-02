@@ -73,10 +73,11 @@ header {
 }
 
 .highlight {
-  background-color: rgba(153, 72, 72, 0.5);
+  background-color: rgba(100, 23, 23, 0.5);
 }
 
 .episode-code {
+  /* position: fixed; */
   color: black;
   background-image: linear-gradient(
     to bottom right,
