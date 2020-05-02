@@ -13,11 +13,13 @@ let episodes_api_url = `https://api.tvmaze.com/shows/[SHOW-ID]/episodes`;
 function hideEpisodeSelectionMenu() {
   selectEpisodeEl.style.display = "none";
   isDisplayingEpisodes = false;
+  searchElm.placeholder = "Search Shows...";
 }
 
 function showEpisodeSelectionMenu() {
   selectEpisodeEl.style.display = "initial";
   isDisplayingEpisodes = true;
+  searchElm.placeholder = "Search Episodes...";
 }
 
 function setup() {
