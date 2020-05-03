@@ -3,7 +3,7 @@ const rootElem = document.getElementById("root");
 const rowEl = document.getElementById("row");
 const selectShowEl = document.getElementById("select-show");
 const selectEpisodeEl = document.getElementById("select-episode");
-const searchElm = document.getElementById("search");
+const searchEl = document.getElementById("search");
 
 let currentShow;
 let currentShowEpisodes = [];
@@ -103,13 +103,13 @@ function displayNumber(array1, array2, type) {
 function hideEpisodeSelectionMenu() {
   selectEpisodeEl.style.display = "none";
   isDisplayingEpisodes = false;
-  searchElm.placeholder = "Search Shows...";
+  searchEl.placeholder = "Search Shows...";
 }
 
 function showEpisodeSelectionMenu() {
   selectEpisodeEl.style.display = "initial";
   isDisplayingEpisodes = true;
-  searchElm.placeholder = "Search Episodes...";
+  searchEl.placeholder = "Search Episodes...";
 }
 
 function emptyEpisodeSelectionMenu() {
@@ -245,16 +245,18 @@ function createEpisodeCard(episode) {
   cardBodyEl.appendChild(imgEl);
   imgEl.className = "episode-img";
   imgEl.src =
-    episode.image !== null ? episode.image.medium.replace("http", "https") : "";
+    episode.image !== null
+      ? episode.image.medium.replace("http", "https")
+      : "https://www.nxp.com/assets/images/en/logos-internal/image-not-available.png";
 
   // Create episode summary element
   const summaryEl = document.createElement("p");
   cardBodyEl.appendChild(summaryEl);
   summaryEl.className = "episode-summary";
   summaryEl.innerText =
-    episode.summary !== null
-      ? episode.summary.replace(/<\/?[^>]+(>|$)/g, "")
-      : "No Summary Available";
+    episode.summary == "" || episode.summary == null
+      ? "No Summary Available"
+      : episode.summary.replace(/<\/?[^>]+(>|$)/g, "");
 }
 
 // Adding show episodes to drop down episode selection menu
@@ -296,8 +298,8 @@ function moveToEpisode(episodes) {
 }
 
 // Searching
-searchElm.addEventListener("input", () => {
-  displayMatchingSearchResults(searchElm.value);
+searchEl.addEventListener("input", () => {
+  displayMatchingSearchResults(searchEl.value);
 });
 
 function displayMatchingSearchResults(searchInput) {
@@ -358,5 +360,16 @@ function highlight(text, targetClass) {
     );
   });
 }
+
+// Clicking home button
+document.getElementById("home-btn").addEventListener("click", () => {
+  const currentShowCardEl = document.getElementById("current-show-card");
+
+  if (currentShowCardEl != null) {
+    currentShowCardEl.remove();
+  }
+  selectShowEl.value = "ALL SHOWS";
+  setup();
+});
 
 window.onload = setup;

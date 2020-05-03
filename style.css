@@ -5,17 +5,38 @@ body {
 header {
   background-color: black;
   color: white;
-  opacity: 0.8;
+  /* opacity: 0.5; */
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   width: 100%;
   margin-bottom: 20px;
 }
 
+.home-btn-container {
+  margin: 10px;
+  justify-self: left;
+}
+
+.home-btn {
+  width: 55px;
+  height: 40px;
+  border: 1px solid;
+  border-radius: 5px;
+}
+
+.home-btn:hover {
+  cursor: pointer;
+  opacity: 0.5;
+}
+
+.fa-tv {
+  font-size: 30px;
+}
+
 .selection-dropdown-menu {
-  width: 100%;
+  width: 280px;
   height: 40px;
   margin: 10px;
   text-align: center;
@@ -29,21 +50,29 @@ header {
 }
 
 .search {
-  width: 100%;
+  width: 280px;
   height: 40px;
   margin: 10px;
-  font-size: 18px;
+  padding: 10px;
+  font-weight: bold;
+  font-size: 16px;
+  border: 1px solid;
+  border-radius: 5px;
 }
 
-.data-origin,
-.display {
-  margin: 10px;
-  margin-top: 5px;
-  font-size: 12px;
+.displaying-container {
+  width: 180px;
+  margin-left: 15px;
 }
 
 .data-origin {
   width: 50%;
+  margin: 10px;
+}
+
+.search-form-container {
+  display: flex;
+  flex-wrap: wrap;
   margin: 10px;
 }
 
@@ -232,6 +261,14 @@ header {
 
 .genres {
   list-style-type: symbols();
+}
+
+.tv-maze-container {
+}
+
+.data-origin {
+  color: white;
+  font-size: 16px;
 }
 
 /* @media (min-width: 576px) {

@@ -13,25 +13,23 @@
 
 <body>
   <header>
-    <div class='sm-col-8 md-col-6 lg-col-5 xl-col-4'><select name="Shows" id="select-show" class="selection-dropdown-menu
+    <div class="home-btn-container"><button type="button" id="home-btn" class="home-btn"><i class="fas fa-tv"></i>
+      </button></div>
+    <div class='select-show-container'>
+      <select name="Shows" id="select-show" class="selection-dropdown-menu
 "></select>
     </div>
-    <div class='sm-col-8 md-col-6 lg-col-5 xl-col-4'><select name="Episodes" id="select-episode" class="selection-dropdown-menu
+    <div class='select-episode-container'>
+      <select name="Episodes" id="select-episode" class="selection-dropdown-menu
 "></select></div>
-    <div class='sm-col-8 md-col-6 lg-col-5 xl-col-4'>
-      <input type="search" id="search" class="search" onkeyup="" placeholder="Search Shows..." results="0" />
+    <div class='search-form-container'>
+      <form action="">
+        <input type="search" id="search" class="search" onkeyup="" placeholder="Search Shows..." results="0" />
+      </form>
+      <div class="displaying-container">
+        <p class="display">Displaying: </p>
+      </div>
     </div>
-    <div class='sm-col-8 md-col-6 lg-col-5 xl-col-4'>
-      <p class="display">Displaying: </p>
-    </div>
-    <div class='sm-col-8 md-col-6 lg-col-5 xl-col-4'>
-      <p class="data-origin">Data source: <a href="https://www.tvmaze.com/" target=”_blank”>TVMAZE</a></p>
-    </div>
-
-
-
-
-
   </header>
 
   <div id="root">
@@ -41,6 +39,11 @@
     </div>
   </div>
 
+  <footer>
+    <div class='tv-maze-container'>
+      <p class="data-origin">Data from: <a href="https://www.tvmaze.com/" target=”_blank”>TVMAZE</a></p>
+    </div>
+  </footer>
   <!-- Loads a provided function called getAllEpisodes() which returns all episodes -->
   <script src="episodes.js"></script>
 
