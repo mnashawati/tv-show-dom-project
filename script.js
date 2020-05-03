@@ -354,14 +354,13 @@ function highlight(text, targetClass) {
   const targetEl = document.querySelectorAll(targetClass);
   targetEl.forEach((string) => {
     let regex = new RegExp(text, "gi");
-    string.innerHTML = string.innerHTML.replace(
-      regex,
-      `<span class="highlight">${text}</span>`
-    );
+    string.innerHTML = string.innerHTML.replace(regex, function (match) {
+      return `<span class="highlight">${match}</span>`;
+    });
   });
 }
 
-// Clicking home button
+// Clicking home button (with the TV icon)
 document.getElementById("home-btn").addEventListener("click", () => {
   const currentShowCardEl = document.getElementById("current-show-card");
 
