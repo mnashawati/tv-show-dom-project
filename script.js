@@ -1,6 +1,7 @@
 const allShows = getAllShows();
 const rootElem = document.getElementById("root");
 const rowEl = document.getElementById("row");
+
 const selectShowEl = document.getElementById("select-show");
 const selectEpisodeEl = document.getElementById("select-episode");
 const searchEl = document.getElementById("search");
@@ -35,6 +36,11 @@ function addAllShowsToSelectionMenu(shows) {
       showOption.className = "show-option";
       showOption.value = show.id;
     });
+
+  // Selecting shows
+  selectShowEl.addEventListener("change", () => {
+    moveToShow(allShows);
+  });
 }
 
 function displayAllShows(shows) {
@@ -64,15 +70,15 @@ function createShowCard(show) {
   showImgEl.className = "show-img";
   showImgEl.src = show.image.medium.replace("http", "https");
 
-  const showNameEl = document.createElement("h3");
-  showCardBodyEl.appendChild(showNameEl);
-  showNameEl.className = "show-name-link";
-  showNameEl.innerText = show.name;
-
   showImgEl.addEventListener("click", () => {
     selectShowEl.value = show.id;
     moveToShow(allShows);
   });
+
+  const showNameEl = document.createElement("h3");
+  showCardBodyEl.appendChild(showNameEl);
+  showNameEl.className = "show-name";
+  showNameEl.innerText = show.name;
 
   const showInfoEl = document.createElement("div");
   showCardBodyEl.appendChild(showInfoEl);
@@ -115,11 +121,6 @@ function showEpisodeSelectionMenu() {
 function emptyEpisodeSelectionMenu() {
   selectEpisodeEl.innerHTML = "";
 }
-
-// Selecting shows
-selectShowEl.addEventListener("change", () => {
-  moveToShow(allShows);
-});
 
 function moveToShow(shows) {
   const currentShowCardEl = document.getElementById("current-show-card");
@@ -274,12 +275,12 @@ function addAllEpisodesToSelectionMenu(episodes) {
     episodeOption.className = "episode-option";
     episodeOption.value = episode.id;
   });
-}
 
-// Selecting Episodes
-selectEpisodeEl.addEventListener("change", () => {
-  moveToEpisode(currentShowEpisodes);
-});
+  // Selecting Episodes
+  selectEpisodeEl.addEventListener("change", () => {
+    moveToEpisode(currentShowEpisodes);
+  });
+}
 
 function moveToEpisode(episodes) {
   emptyRowEl();
@@ -354,9 +355,10 @@ function highlight(text, targetClass) {
   const targetEl = document.querySelectorAll(targetClass);
   targetEl.forEach((string) => {
     let regex = new RegExp(text, "gi");
-    string.innerHTML = string.innerHTML.replace(regex, function (match) {
-      return `<span class="highlight">${match}</span>`;
-    });
+    string.innerHTML = string.innerHTML.replace(
+      regex,
+      (match) => `<span class="highlight">${match}</span>`
+    );
   });
 }
 
