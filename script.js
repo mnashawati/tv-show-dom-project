@@ -141,6 +141,7 @@ function moveToShow(shows) {
     makeOneBigCurrentShowCard(currentShow);
     getShowEpisodes(currentShow.id);
     showEpisodeSelectionMenu();
+    history.pushState(show.id, `selected: ${show.id}`, `/${show.name}`);
   }
 }
 
