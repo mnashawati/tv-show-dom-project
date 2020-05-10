@@ -141,7 +141,7 @@ function moveToShow(shows) {
     makeOneBigCurrentShowCard(currentShow);
     getShowEpisodes(currentShow.id);
     showEpisodeSelectionMenu();
-    history.pushState(show.id, `selected: ${show.id}`, `/${show.name}`);
+    // history.pushState(show.id, `selected: ${show.id}`, `/${show.name}`);
   }
 }
 
@@ -213,12 +213,27 @@ function createEpisodeCode(episode) {
   ).padStart(2, 0)}`;
 }
 
+function createElem(tag, parent, cls, text) {
+  const element = document.createElement(tag);
+  parent.appendChild(element);
+  element.className = cls;
+  element.innerText = text;
+  return element;
+}
+
 function createEpisodeCard(episode) {
   // Create episode container div
-  const episodeContainerEl = document.createElement("div");
-  rowEl.appendChild(episodeContainerEl);
-  episodeContainerEl.className =
-    "episode-container col-10 sm-col-8 md-col-6 lg-col-4 xl-col-3";
+  // const episodeContainerEl = document.createElement("div");
+  // rowEl.appendChild(episodeContainerEl);
+  // episodeContainerEl.className =
+  //   "episode-container col-10 sm-col-8 md-col-6 lg-col-4 xl-col-3";
+
+  const episodeContainerEl = createElem(
+    "div",
+    rowEl,
+    "episode-container col-10 sm-col-8 md-col-6 lg-col-4 xl-col-3"
+  );
+  console.log(episodeContainerEl);
 
   // Create episode card's container div
   const cardBodyEl = document.createElement("div");
