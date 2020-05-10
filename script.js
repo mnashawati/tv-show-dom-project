@@ -353,10 +353,10 @@ function filterSearchedInShows(shows, searchInput) {
 }
 
 function highlight(text, targetClass) {
-  const targetEl = document.querySelectorAll(targetClass);
-  targetEl.forEach((string) => {
+  const targetEls = document.querySelectorAll(targetClass);
+  targetEls.forEach((targetEl) => {
     let regex = new RegExp(text, "gi");
-    string.innerHTML = string.innerHTML.replace(
+    targetEl.innerHTML = targetEl.innerHTML.replace(
       regex,
       (match) => `<span class="highlight">${match}</span>`
     );
