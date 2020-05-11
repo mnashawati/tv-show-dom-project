@@ -87,6 +87,13 @@ function createShowCard(show) {
   showRuntimeEl.innerText = `Runtime: ${show.runtime}`;
 }
 
+function createElem(tag, parent, cls) {
+  const element = document.createElement(tag);
+  parent.appendChild(element);
+  element.className = cls;
+  return element;
+}
+
 function displayNumber(array1, array2, type) {
   document.querySelector(
     ".display"
@@ -229,13 +236,6 @@ function createEpisodeCode(episode) {
   episode.code = `S${String(episode.season).padStart(2, 0)}E${String(
     episode.number
   ).padStart(2, 0)}`;
-}
-
-function createElem(tag, parent, cls) {
-  const element = document.createElement(tag);
-  parent.appendChild(element);
-  element.className = cls;
-  return element;
 }
 
 function createEpisodeCard(episode) {
