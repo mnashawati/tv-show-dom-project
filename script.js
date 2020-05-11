@@ -110,11 +110,7 @@ function emptyEpisodeSelectionMenu() {
 }
 
 function moveToShow(shows) {
-  const currentShowCardEl = document.getElementById("current-show-card");
-  if (currentShowCardEl != null) {
-    currentShowCardEl.remove();
-  }
-
+  removeExistingCurrentShowCard();
   emptyRowEl();
   emptyEpisodeSelectionMenu();
 
@@ -133,7 +129,7 @@ function moveToShow(shows) {
 }
 
 function makeOneBigCurrentShowCard(show) {
-  currentShowCardEl = document.createElement("div");
+  const currentShowCardEl = document.createElement("div");
   rootElem.insertBefore(currentShowCardEl, rootElem.firstChild);
   currentShowCardEl.className = "current-show-card";
   currentShowCardEl.id = "current-show-card";
@@ -239,7 +235,6 @@ function createElem(tag, parent, cls) {
   const element = document.createElement(tag);
   parent.appendChild(element);
   element.className = cls;
-  // element.innerText = text;
   return element;
 }
 
@@ -254,7 +249,6 @@ function createEpisodeCard(episode) {
 
   const titleContainerEl = createElem("div", cardBodyEl, "title-container");
 
-  // Create episode code element (SxxExx) format
   const episodeCodeEl = createElem("p", titleContainerEl, "episode-code");
   episodeCodeEl.innerText = episode.code;
 
@@ -382,38 +376,16 @@ function highlight(text, targetClass) {
 
 // Clicking home button (with the TV icon)
 document.getElementById("home-btn").addEventListener("click", () => {
-  const currentShowCardEl = document.getElementById("current-show-card");
-
-  if (currentShowCardEl != null) {
-    currentShowCardEl.remove();
-  }
+  removeExistingCurrentShowCard();
   selectShowEl.value = "ALL SHOWS";
   setup();
 });
 
-window.onload = setup;
+function removeExistingCurrentShowCard() {
+  const currentShowCardEl = document.getElementById("current-show-card");
+  if (currentShowCardEl != null) {
+    currentShowCardEl.remove();
+  }
+}
 
-// makeOneBigCurrentShowCard
-// currentShowCardEl.innerHTML = `
-//   <div class="current-show-card-img-container">
-//     <img class="current-show-card-img" src="${show.image.medium.replace(
-//       "http",
-//       "https"
-//     )}" /></div>
-//   // <div class="show-card-info sm-col-12 md-col-7 lg-col-8 xl-col-9">
-//     <div class="current-show-card-name-rating-container">
-//     <h2 class="show-card-name">${show.name} &nbsp;
-//       <i class="fas fa-star">${show.rating.average}</i>
-//     </h2>
-//     </div>
-//     <div class="show-card-small-info">
-//       <li><strong>Genres: </strong>${separateGenres(show.genres)}</li>
-//       <li><strong>Status: </strong>${show.status}</li>
-//       <li><strong>Runtime: </strong>${show.runtime}</li>
-//     </div>
-//     <p id="show-summary" class="show-summary">${show.summary.replace(
-//       /<\/?[^>]+(>|$)/g,
-//       ""
-//     )}</p>
-//   </div>
-// `;
+window.onload = setup;
