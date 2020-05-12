@@ -9,7 +9,6 @@ const searchEl = document.getElementById("search");
 let currentShow;
 let currentShowEpisodes = [];
 let isDisplayingEpisodes = false;
-let episodes_api_url = `https://api.tvmaze.com/shows/[SHOW-ID]/episodes`;
 
 function setup() {
   addAllShowsToSelectionMenu(allShows);
@@ -210,17 +209,16 @@ function separateGenres(genres) {
   return allGenres;
 }
 
-// Fetching show episodes API
+// Getting show episodes data from the API
 function getShowEpisodes(showID) {
-  let selectedApiUrl = episodes_api_url.replace("[SHOW-ID]", String(showID));
-  fetch(selectedApiUrl)
+  fetch(`https://api.tvmaze.com/shows/${String(showID)}/episodes`)
     .then((response) => response.json())
     .then((data) => {
       currentShowEpisodes = data;
       makePageForEpisodes(currentShowEpisodes);
       addAllEpisodesToSelectionMenu(currentShowEpisodes);
     })
-    .catch((error) => console.log(error));
+    .catch((error) => alert("Oops something went wrong" + error));
 }
 
 function makePageForEpisodes(episodes) {
